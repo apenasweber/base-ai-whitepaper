@@ -1,0 +1,73 @@
+title: "Base A.I - Whitepaper"
+description: "Transformando infraestrutura de IA em classe de ativo real"
+baseurl: ""
+url: "https://username.github.io"
+
+# GitHub Pages theme
+theme: minima
+
+# Navigation
+header_pages:
+  - index.md
+  - contexto-de-mercado.md
+  - modelo-de-negocio.md
+  - infraestrutura.md
+  - governanca.md
+  - estrutura-financeira.md
+  - consideracoes.md
+  - processo-de-investimento.md
+  - anexos.md
+
+# Sidebar navigation
+sidebar:
+  - title: "Resumo Executivo"
+    url: /
+  - title: "Contexto de Mercado"
+    url: /contexto-de-mercado
+  - title: "Modelo de Negócio"
+    url: /modelo-de-negocio
+  - title: "Infraestrutura e Tecnologia"
+    url: /infraestrutura
+  - title: "Governança e Transparência"
+    url: /governanca
+  - title: "Estrutura Financeira"
+    url: /estrutura-financeira
+  - title: "Considerações Importantes"
+    url: /consideracoes
+  - title: "Processo de Investimento"
+    url: /processo-de-investimento
+  - title: "Anexos"
+    url: /anexos
+
+# Plugins
+plugins:
+  - jekyll-feed
+  - jekyll-sitemap
+  - jekyll-seo-tag
+
+# Markdown settings
+markdown: kramdown
+highlighter: rouge
+kramdown:
+  input: GFM
+  syntax_highlighter: rouge
+
+# Exclude files
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - node_modules
+  - vendor/bundle/
+  - vendor/cache/
+  - vendor/gems/
+  - vendor/ruby/
+  - README.md
+
+# SEO
+author: Base A.I
+twitter:
+  username: baseai
+  card: summary
+
+# Google Analytics (opcional)
+# google_analytics: UA-XXXXXXXX-X
