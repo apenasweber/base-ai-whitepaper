@@ -1,0 +1,589 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Infraestrutura - Base A.I</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            color: #2d3748;
+            background: #ffffff;
+        }
+        
+        .container {
+            display: flex;
+            min-height: 100vh;
+        }
+        
+        .sidebar {
+            width: 280px;
+            background: #f7fafc;
+            border-right: 1px solid #e2e8f0;
+            padding: 2rem 0;
+            position: fixed;
+            height: 100vh;
+            overflow-y: auto;
+            transform: translateX(-100%);
+            transition: transform 0.3s ease;
+            z-index: 1000;
+        }
+        
+        .sidebar.active {
+            transform: translateX(0);
+        }
+        
+        @media (min-width: 769px) {
+            .sidebar {
+                transform: translateX(0);
+                position: sticky;
+                top: 0;
+            }
+        }
+        
+        .sidebar-header {
+            padding: 0 1.5rem 1rem;
+            border-bottom: 1px solid #e2e8f0;
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+        
+        .logo {
+            width: 120px;
+            height: auto;
+            margin-bottom: 0.5rem;
+        }
+        
+        .sidebar-header h1 {
+            font-size: 1.5rem;
+            color: #1a365d;
+            margin-bottom: 0.5rem;
+        }
+        
+        .sidebar-header p {
+            font-size: 0.875rem;
+            color: #718096;
+        }
+        
+        .nav-list {
+            list-style: none;
+        }
+        
+        .nav-item {
+            margin: 0;
+        }
+        
+        .nav-link {
+            display: flex;
+            align-items: center;
+            padding: 0.75rem 1.5rem;
+            text-decoration: none;
+            color: #2d3748;
+            border-left: 3px solid transparent;
+            transition: all 0.2s ease;
+        }
+        
+        .nav-link:hover {
+            background: #edf2f7;
+            color: #3182ce;
+        }
+        
+        .nav-link.active {
+            background: #bee3f8;
+            color: #3182ce;
+            border-left-color: #3182ce;
+            font-weight: 600;
+        }
+        
+        .nav-number {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 1.5rem;
+            height: 1.5rem;
+            margin-right: 0.75rem;
+            font-size: 0.75rem;
+            font-weight: 600;
+            background: #e2e8f0;
+            color: #718096;
+            border-radius: 50%;
+        }
+        
+        .nav-link.active .nav-number {
+            background: #3182ce;
+            color: white;
+        }
+        
+        .sidebar-footer {
+            margin-top: auto;
+            padding: 1.5rem;
+            border-top: 1px solid #e2e8f0;
+            font-size: 0.75rem;
+            color: #718096;
+        }
+        
+        .sidebar-footer a {
+            color: #3182ce;
+            text-decoration: none;
+        }
+        
+        .main-content {
+            flex: 1;
+            margin-left: 0;
+            padding: 2rem;
+        }
+        
+        @media (min-width: 769px) {
+            .main-content {
+                margin-left: 280px;
+                padding: 3rem 2rem;
+            }
+        }
+        
+        .content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .mobile-toggle {
+            display: block;
+            position: fixed;
+            top: 1rem;
+            left: 1rem;
+            z-index: 1001;
+            background: #1a365d;
+            color: white;
+            border: none;
+            padding: 0.5rem;
+            border-radius: 0.375rem;
+            cursor: pointer;
+        }
+        
+        @media (min-width: 769px) {
+            .mobile-toggle {
+                display: none;
+            }
+        }
+        
+        .overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 999;
+        }
+        
+        .overlay.active {
+            display: block;
+        }
+        
+        h1, h2, h3 {
+            color: #1a365d;
+            margin: 2rem 0 1rem;
+        }
+        
+        h1 {
+            font-size: 2.25rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        h2 {
+            font-size: 1.875rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid #e2e8f0;
+        }
+        
+        h3 {
+            font-size: 1.5rem;
+        }
+        
+        p {
+            margin: 1rem 0;
+            line-height: 1.7;
+        }
+        
+        blockquote {
+            margin: 2rem 0;
+            padding: 1.5rem;
+            background: #f7fafc;
+            border-left: 4px solid #3182ce;
+            border-radius: 0 0.375rem 0.375rem 0;
+            font-style: italic;
+        }
+        
+        ul, ol {
+            margin: 1rem 0;
+            padding-left: 2rem;
+        }
+        
+        li {
+            margin: 0.5rem 0;
+        }
+        
+        a {
+            color: #3182ce;
+            text-decoration: none;
+        }
+        
+        a:hover {
+            text-decoration: underline;
+        }
+        
+        strong {
+            font-weight: 600;
+            color: #1a365d;
+        }
+        
+        .page-nav {
+            margin-top: 4rem;
+            padding-top: 2rem;
+            border-top: 1px solid #e2e8f0;
+            display: flex;
+            justify-content: space-between;
+            gap: 1rem;
+        }
+        
+        .nav-btn {
+            padding: 1rem 1.5rem;
+            background: #f7fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 0.5rem;
+            text-decoration: none;
+            color: #2d3748;
+            transition: all 0.2s ease;
+            flex: 1;
+            max-width: 45%;
+        }
+        
+        .nav-btn:hover {
+            background: #edf2f7;
+            border-color: #3182ce;
+            transform: translateY(-1px);
+        }
+        
+        .nav-btn-next {
+            text-align: right;
+        }
+        
+        .nav-direction {
+            font-size: 0.875rem;
+            color: #718096;
+            display: block;
+            margin-bottom: 0.25rem;
+        }
+        
+        .nav-title {
+            font-weight: 600;
+            color: #1a365d;
+        }
+        
+        @media (max-width: 768px) {
+            .page-nav {
+                flex-direction: column;
+            }
+            .nav-btn {
+                max-width: 100%;
+            }
+            .content {
+                margin-top: 3rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Mobile Toggle -->
+        <button class="mobile-toggle" onclick="toggleSidebar()">☰</button>
+        
+        <!-- Overlay -->
+        <div class="overlay" onclick="toggleSidebar()"></div>
+        
+        <!-- Sidebar -->
+        <nav class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <img src="logo.png" alt="Base A.I Logo" class="logo">
+                <p>Whitepaper</p>
+            </div>
+            
+            <ul class="nav-list">
+                <li class="nav-item">
+                    <a href="index.html" class="nav-link ">
+                        <span class="nav-number">1</span>
+                        <span>Introdução</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="contexto-de-mercado.html" class="nav-link ">
+                        <span class="nav-number">2</span>
+                        <span>Contexto de Mercado</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="modelo-de-negocio.html" class="nav-link ">
+                        <span class="nav-number">3</span>
+                        <span>Modelo de Negócio</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="infraestrutura.html" class="nav-link active">
+                        <span class="nav-number">4</span>
+                        <span>Infraestrutura</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="estrutura-financeira.html" class="nav-link ">
+                        <span class="nav-number">5</span>
+                        <span>Estrutura Financeira</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="processo-de-investimento.html" class="nav-link ">
+                        <span class="nav-number">6</span>
+                        <span>Processo de Investimento</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="governanca.html" class="nav-link ">
+                        <span class="nav-number">7</span>
+                        <span>Governança</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="consideracoes.html" class="nav-link ">
+                        <span class="nav-number">8</span>
+                        <span>Considerações</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="anexos.html" class="nav-link ">
+                        <span class="nav-number">9</span>
+                        <span>Anexos</span>
+                    </a>
+                </li>
+            </ul>
+            
+            <div class="sidebar-footer">
+                <p><strong>Contato:</strong></p>
+                <p><a href="mailto:contato@baseai.capital">contato@baseai.capital</a></p>
+                <p><a href="https://baseai.capital" target="_blank">baseai.capital</a></p>
+            </div>
+        </nav>
+        
+        <!-- Main Content -->
+        <main class="main-content">
+            <div class="content">
+                <h1>Infraestrutura</h1>
+
+                <h2>Estrutura Baseada em Transparência e Responsabilidade</h2>
+
+<p>A <strong>Base A.I</strong> opera com base em uma estrutura de governança moderna, simples e transparente, alinhada às melhores práticas internacionais de empresas de tecnologia e infraestrutura.  </p>
+<p>Nosso modelo foi desenhado para garantir <strong>clareza nas decisões, rastreabilidade das operações e confiança dos parceiros</strong>.</p>
+
+
+
+<h2>Estrutura de Liderança</h2>
+
+<h3>Direção Executiva</h3>
+
+<p><strong>CEO / Fundador — Anderson Weber</strong>  </p>
+<p>Responsável pela estratégia corporativa, relacionamento com parceiros e expansão internacional. Atua também na gestão operacional e comercial dos projetos de infraestrutura.</p>
+
+<p><strong>CTO / Cofundador — Pedro Lucas Morais</strong>  </p>
+<p>Responsável pela arquitetura técnica dos clusters, integração com data centers parceiros e supervisão das métricas de performance e eficiência computacional.</p>
+
+<p>Essa estrutura enxuta e direta garante <strong>agilidade nas decisões e execução eficiente</strong>, com apoio de <strong>consultores externos especializados</strong> em auditoria, governança e jurídico contratual.</p>
+
+
+
+<h2>Consultoria e Auditoria Independente</h2>
+
+<p>A Base A.I mantém parcerias com <strong>auditores independentes e consultores de compliance contratual</strong>, que atuam de forma terceirizada em revisões anuais de documentação e relatórios de desempenho.</p>
+
+<ul>
+<li><strong>Auditoria técnica de infraestrutura:</strong> realizada por empresas independentes do setor de data centers.</li>
+<li><strong>Auditoria financeira:</strong> validação de resultados operacionais e distribuição de receitas.</li>
+<li><strong>Compliance contratual:</strong> revisão de cláusulas e boas práticas conforme o Código Civil Brasileiro (arts. 991 a 996 – SCP).</li>
+</ul>
+
+<p>Essas práticas asseguram <strong>transparência e segurança jurídica</strong>, sem necessidade de enquadramento como fundo de investimento ou supervisão da CVM.</p>
+
+
+
+<h2>Transparência Operacional</h2>
+
+<h3>Dashboard de Performance</h3>
+
+<p>A Base A.I disponibiliza um <strong>painel de acompanhamento em tempo real</strong> com informações públicas e privadas:</p>
+
+<p><strong>Métricas Públicas</strong></p>
+<ul>
+<li>GPUs operacionais e modelos ativos (H100, MI300X, A100, etc.)</li>
+<li>Utilização média dos clusters</li>
+<li>Uptime dos data centers (> 99,9% em média global — *Uptime Institute 2024*)</li>
+<li>Volume mensal de horas computacionais processadas</li>
+</ul>
+
+<p><strong>Métricas Privadas (acesso restrito a parceiros)</strong></p>
+<ul>
+<li>Receita operacional consolidada</li>
+<li>Custo médio de energia por GPU (kWh)</li>
+<li>Taxa de utilização por projeto</li>
+<li>Relatórios de eficiência e margem operacional média</li>
+</ul>
+
+<p>📊 *Referências: Uptime Institute 2024, McKinsey AI Infrastructure Report 2025, NVIDIA Investor Relations 2025*</p>
+
+
+
+<h2>Governança Corporativa e Controles</h2>
+
+<h3>Pilares de Gestão</h3>
+
+<ul>
+<li><strong>Transparência:</strong> relatórios mensais com desempenho e uso de recursos</li>
+<li><strong>Rastreabilidade:</strong> registro digital de contratos e auditorias</li>
+<li><strong>Accountability:</strong> revisão periódica de decisões estratégicas</li>
+<li><strong>Segurança:</strong> políticas de KYC (Know Your Customer) e AML (Anti-Money Laundering)</li>
+</ul>
+
+<p>A Base A.I adota ferramentas de controle integradas (ERP financeiro + painel operacional) para monitorar custos, faturamento e desempenho em tempo real.</p>
+
+
+
+<h2>Gestão de Riscos e Eficiência</h2>
+
+<h3>Riscos Operacionais e Comerciais</h3>
+
+<p>Os principais fatores de atenção incluem:</p>
+<ul>
+<li>Obsolescência tecnológica</li>
+<li>Custos de energia e refrigeração</li>
+<li>Disponibilidade de GPUs no mercado</li>
+<li>Concentração de clientes em grandes contratos</li>
+</ul>
+
+<p><strong>Medidas de Mitigação</strong></p>
+<ul>
+<li>Contratos de fornecimento com múltiplos fabricantes (NVIDIA, AMD, Intel)</li>
+<li>Programa de atualização escalonado de hardware</li>
+<li>Seguro de equipamentos e proteção cibernética</li>
+<li>Diversificação de clientes e workloads</li>
+</ul>
+
+<p>🔹 *Segundo a Oracle (2025), margens médias em infraestrutura AI Cloud variam entre 30 % e 40 %*  </p>
+<p>🔹 *A CoreWeave reporta taxas de utilização de 35 %–45 % em clusters GPU em larga escala*  </p>
+<p>🔹 *A NVIDIA mantém ~80 % do market share global de GPUs para IA — Investing.com (2025)*  </p>
+
+<p>Esses dados demonstram que o setor apresenta <strong>alto potencial operacional</strong>, ainda com espaço para otimização e ganhos de eficiência.</p>
+
+
+
+<h2>Critérios ESG</h2>
+
+<p>A Base A.I segue diretrizes ambientais, sociais e de governança (ESG) compatíveis com padrões internacionais do setor de tecnologia:</p>
+
+<h3>Ambiental</h3>
+<ul>
+<li>Parcerias com data centers que operam com <strong>PUE médio < 1,4</strong> (*Uptime Institute 2024*)</li>
+<li>Contratos preferenciais com fornecedores de <strong>energia renovável</strong></li>
+<li>Reciclagem e revenda de hardware descomissionado</li>
+</ul>
+
+<h3>Social</h3>
+<ul>
+<li>Apoio a <strong>pesquisas acadêmicas e startups de IA</strong></li>
+<li>Programas de <strong>educação e treinamento técnico local</strong></li>
+<li>Inclusão e diversidade no recrutamento</li>
+</ul>
+
+<h3>Governança</h3>
+<ul>
+<li><strong>Auditoria independente anual</strong></li>
+<li><strong>Relatórios públicos de performance</strong></li>
+<li><strong>Políticas claras de transparência e anticorrupção</strong></li>
+</ul>
+
+
+
+<h2>Seleção e Parceria com Fornecedores</h2>
+
+<p><strong>Data Centers</strong></p>
+<ul>
+<li>Certificação Tier III ou superior</li>
+<li>SLA mínimo de 99,9 % de disponibilidade</li>
+<li>Redundância de energia e conectividade</li>
+</ul>
+
+<p><strong>Fabricantes de GPU</strong></p>
+<ul>
+<li>Suporte técnico 24/7 e garantia mínima de 3 anos</li>
+<li>Histórico comprovado de performance industrial</li>
+<li>Alinhamento a padrões de sustentabilidade e eficiência</li>
+</ul>
+
+<p><strong>Critérios Comerciais</strong></p>
+<ul>
+<li>Preços competitivos e contratos de longo prazo</li>
+<li>Penalidades por falhas de SLA</li>
+<li>Flexibilidade para upgrades e expansão</li>
+</ul>
+
+
+
+<h2>Transparência e Comunicação</h2>
+
+<p>Cada parceiro da Base A.I tem acesso a relatórios mensais de performance e a documentos auditáveis via painel privado.  </p>
+<p>As decisões estratégicas são comunicadas com clareza e documentadas digitalmente.</p>
+
+<p>📩 <strong>Contato oficial:</strong> contato@baseai.capital  </p>
+
+
+
+<p>*A governança é o alicerce da confiança — e na Base A.I, confiança se constrói com dados, transparência e tecnologia.*</p>
+                
+                <!-- Navigation -->
+                <div class="page-nav">
+                    
+        <a href="modelo-de-negocio.html" class="nav-btn">
+            <span class="nav-direction">← Anterior</span>
+            <span class="nav-title">Modelo de Negócio</span>
+        </a>
+        <a href="estrutura-financeira.html" class="nav-btn nav-btn-next">
+            <span class="nav-direction">Próximo →</span>
+            <span class="nav-title">Estrutura Financeira</span>
+        </a>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            const overlay = document.querySelector('.overlay');
+            
+            sidebar.classList.toggle('active');
+            overlay.classList.toggle('active');
+        }
+
+        // Close sidebar when clicking on nav links (mobile)
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', () => {
+                if (window.innerWidth <= 768) {
+                    toggleSidebar();
+                }
+            });
+        });
+    </script>
+</body>
+</html>

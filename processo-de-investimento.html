@@ -1,0 +1,598 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Processo de Investimento - Base A.I</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            color: #2d3748;
+            background: #ffffff;
+        }
+        
+        .container {
+            display: flex;
+            min-height: 100vh;
+        }
+        
+        .sidebar {
+            width: 280px;
+            background: #f7fafc;
+            border-right: 1px solid #e2e8f0;
+            padding: 2rem 0;
+            position: fixed;
+            height: 100vh;
+            overflow-y: auto;
+            transform: translateX(-100%);
+            transition: transform 0.3s ease;
+            z-index: 1000;
+        }
+        
+        .sidebar.active {
+            transform: translateX(0);
+        }
+        
+        @media (min-width: 769px) {
+            .sidebar {
+                transform: translateX(0);
+                position: sticky;
+                top: 0;
+            }
+        }
+        
+        .sidebar-header {
+            padding: 0 1.5rem 1rem;
+            border-bottom: 1px solid #e2e8f0;
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+        
+        .logo {
+            width: 120px;
+            height: auto;
+            margin-bottom: 0.5rem;
+        }
+        
+        .sidebar-header h1 {
+            font-size: 1.5rem;
+            color: #1a365d;
+            margin-bottom: 0.5rem;
+        }
+        
+        .sidebar-header p {
+            font-size: 0.875rem;
+            color: #718096;
+        }
+        
+        .nav-list {
+            list-style: none;
+        }
+        
+        .nav-item {
+            margin: 0;
+        }
+        
+        .nav-link {
+            display: flex;
+            align-items: center;
+            padding: 0.75rem 1.5rem;
+            text-decoration: none;
+            color: #2d3748;
+            border-left: 3px solid transparent;
+            transition: all 0.2s ease;
+        }
+        
+        .nav-link:hover {
+            background: #edf2f7;
+            color: #3182ce;
+        }
+        
+        .nav-link.active {
+            background: #bee3f8;
+            color: #3182ce;
+            border-left-color: #3182ce;
+            font-weight: 600;
+        }
+        
+        .nav-number {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 1.5rem;
+            height: 1.5rem;
+            margin-right: 0.75rem;
+            font-size: 0.75rem;
+            font-weight: 600;
+            background: #e2e8f0;
+            color: #718096;
+            border-radius: 50%;
+        }
+        
+        .nav-link.active .nav-number {
+            background: #3182ce;
+            color: white;
+        }
+        
+        .sidebar-footer {
+            margin-top: auto;
+            padding: 1.5rem;
+            border-top: 1px solid #e2e8f0;
+            font-size: 0.75rem;
+            color: #718096;
+        }
+        
+        .sidebar-footer a {
+            color: #3182ce;
+            text-decoration: none;
+        }
+        
+        .main-content {
+            flex: 1;
+            margin-left: 0;
+            padding: 2rem;
+        }
+        
+        @media (min-width: 769px) {
+            .main-content {
+                margin-left: 280px;
+                padding: 3rem 2rem;
+            }
+        }
+        
+        .content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .mobile-toggle {
+            display: block;
+            position: fixed;
+            top: 1rem;
+            left: 1rem;
+            z-index: 1001;
+            background: #1a365d;
+            color: white;
+            border: none;
+            padding: 0.5rem;
+            border-radius: 0.375rem;
+            cursor: pointer;
+        }
+        
+        @media (min-width: 769px) {
+            .mobile-toggle {
+                display: none;
+            }
+        }
+        
+        .overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 999;
+        }
+        
+        .overlay.active {
+            display: block;
+        }
+        
+        h1, h2, h3 {
+            color: #1a365d;
+            margin: 2rem 0 1rem;
+        }
+        
+        h1 {
+            font-size: 2.25rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        h2 {
+            font-size: 1.875rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid #e2e8f0;
+        }
+        
+        h3 {
+            font-size: 1.5rem;
+        }
+        
+        p {
+            margin: 1rem 0;
+            line-height: 1.7;
+        }
+        
+        blockquote {
+            margin: 2rem 0;
+            padding: 1.5rem;
+            background: #f7fafc;
+            border-left: 4px solid #3182ce;
+            border-radius: 0 0.375rem 0.375rem 0;
+            font-style: italic;
+        }
+        
+        ul, ol {
+            margin: 1rem 0;
+            padding-left: 2rem;
+        }
+        
+        li {
+            margin: 0.5rem 0;
+        }
+        
+        a {
+            color: #3182ce;
+            text-decoration: none;
+        }
+        
+        a:hover {
+            text-decoration: underline;
+        }
+        
+        strong {
+            font-weight: 600;
+            color: #1a365d;
+        }
+        
+        .page-nav {
+            margin-top: 4rem;
+            padding-top: 2rem;
+            border-top: 1px solid #e2e8f0;
+            display: flex;
+            justify-content: space-between;
+            gap: 1rem;
+        }
+        
+        .nav-btn {
+            padding: 1rem 1.5rem;
+            background: #f7fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 0.5rem;
+            text-decoration: none;
+            color: #2d3748;
+            transition: all 0.2s ease;
+            flex: 1;
+            max-width: 45%;
+        }
+        
+        .nav-btn:hover {
+            background: #edf2f7;
+            border-color: #3182ce;
+            transform: translateY(-1px);
+        }
+        
+        .nav-btn-next {
+            text-align: right;
+        }
+        
+        .nav-direction {
+            font-size: 0.875rem;
+            color: #718096;
+            display: block;
+            margin-bottom: 0.25rem;
+        }
+        
+        .nav-title {
+            font-weight: 600;
+            color: #1a365d;
+        }
+        
+        @media (max-width: 768px) {
+            .page-nav {
+                flex-direction: column;
+            }
+            .nav-btn {
+                max-width: 100%;
+            }
+            .content {
+                margin-top: 3rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Mobile Toggle -->
+        <button class="mobile-toggle" onclick="toggleSidebar()">☰</button>
+        
+        <!-- Overlay -->
+        <div class="overlay" onclick="toggleSidebar()"></div>
+        
+        <!-- Sidebar -->
+        <nav class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <img src="logo.png" alt="Base A.I Logo" class="logo">
+                <p>Whitepaper</p>
+            </div>
+            
+            <ul class="nav-list">
+                <li class="nav-item">
+                    <a href="index.html" class="nav-link ">
+                        <span class="nav-number">1</span>
+                        <span>Introdução</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="contexto-de-mercado.html" class="nav-link ">
+                        <span class="nav-number">2</span>
+                        <span>Contexto de Mercado</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="modelo-de-negocio.html" class="nav-link ">
+                        <span class="nav-number">3</span>
+                        <span>Modelo de Negócio</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="infraestrutura.html" class="nav-link ">
+                        <span class="nav-number">4</span>
+                        <span>Infraestrutura</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="estrutura-financeira.html" class="nav-link ">
+                        <span class="nav-number">5</span>
+                        <span>Estrutura Financeira</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="processo-de-investimento.html" class="nav-link active">
+                        <span class="nav-number">6</span>
+                        <span>Processo de Investimento</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="governanca.html" class="nav-link ">
+                        <span class="nav-number">7</span>
+                        <span>Governança</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="consideracoes.html" class="nav-link ">
+                        <span class="nav-number">8</span>
+                        <span>Considerações</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="anexos.html" class="nav-link ">
+                        <span class="nav-number">9</span>
+                        <span>Anexos</span>
+                    </a>
+                </li>
+            </ul>
+            
+            <div class="sidebar-footer">
+                <p><strong>Contato:</strong></p>
+                <p><a href="mailto:contato@baseai.capital">contato@baseai.capital</a></p>
+                <p><a href="https://baseai.capital" target="_blank">baseai.capital</a></p>
+            </div>
+        </nav>
+        
+        <!-- Main Content -->
+        <main class="main-content">
+            <div class="content">
+                <h1>Processo de Aporte Privado em Infraestrutura de IA</h1>
+                <h2>Jornada de Participação na Base A.I</h2>
+
+<p>A <strong>Base A.I</strong> estrutura suas parcerias de forma direta e transparente, conectando capital privado à economia real da Inteligência Artificial.  </p>
+<p>Nosso processo é simples, manual e personalizado, garantindo que cada parceiro compreenda todas as etapas — da adesão à operação — com total clareza e segurança jurídica.</p>
+
+
+
+<h2>Etapas do Processo</h2>
+
+<h3>1. Manifestação de Interesse</h3>
+
+<p>O primeiro passo é o <strong>cadastro de interesse</strong> realizado diretamente com a equipe da Base A.I, por meio de formulário digital ou contato direto via e-mail.</p>
+
+<p><strong>Etapas:</strong></p>
+<ul>
+<li>Preenchimento do formulário de interesse</li>
+<li>Indicação do valor pretendido e tipo de participação (pool ou dedicada)</li>
+<li>Aceite dos termos de confidencialidade e não divulgação (NDA)</li>
+<li>Reunião introdutória para apresentação do modelo</li>
+</ul>
+
+<p><strong>Prioridade de atendimento:</strong></p>
+<ul>
+<li>Parceiros estratégicos com experiência em tecnologia</li>
+<li>Empresários e investidores institucionais</li>
+<li>Pessoas físicas qualificadas com interesse em infraestrutura</li>
+</ul>
+
+
+
+<h3>2. Análise e Aprovação de Perfil</h3>
+
+<p>Após o cadastro, a Base A.I realiza uma <strong>verificação interna de adequação e compliance contratual</strong>.  </p>
+<p>Essa análise não possui caráter regulatório, mas busca garantir alinhamento técnico e estratégico entre as partes.</p>
+
+<p><strong>Critérios avaliados:</strong></p>
+<ul>
+<li>Capacidade financeira proporcional ao projeto</li>
+<li>Compreensão do modelo de infraestrutura tecnológica</li>
+<li>Experiência prévia em negócios ou tecnologia</li>
+<li>Alinhamento ao propósito de longo prazo da Base A.I</li>
+</ul>
+
+<p>Em caso de aprovação, o parceiro recebe uma <strong>proposta personalizada</strong> contendo informações do projeto, estrutura contratual e projeções de operação.</p>
+
+
+
+<h3>3. Apresentação e Alinhamento Técnico</h3>
+
+<p>Cada oportunidade é apresentada diretamente pela equipe executiva (CEO e CTO), em formato de reunião virtual ou presencial.</p>
+
+<p><strong>Inclui:</strong></p>
+<ul>
+<li>Apresentação executiva da Base A.I</li>
+<li>Demonstração das métricas e clusters ativos</li>
+<li>Explicação sobre o modelo de alocação de GPUs</li>
+<li>Sessão de perguntas e respostas</li>
+</ul>
+
+<p>A Base A.I também oferece visitas técnicas opcionais aos data centers parceiros, mediante agendamento prévio.</p>
+
+
+
+<h3>4. Formalização Contratual e Aporte</h3>
+
+<p>O parceiro aprovado assina um <strong>Contrato de Parceria Tecnológica Privada</strong>, com validade conforme o ciclo do projeto (normalmente entre 12 e 36 meses).</p>
+
+<p><strong>Características principais:</strong></p>
+<ul>
+<li>Instrumento jurídico amparado pelo Código Civil Brasileiro (arts. 991–996)</li>
+<li>Aporte integral via <strong>transferência bancária (PIX/TED)</strong> no Brasil ou via <strong>remessa internacional</strong> (conta offshore nos EUA)</li>
+<li>Todos os contratos são assinados <strong>digitalmente</strong> e armazenados de forma segura</li>
+<li>O pagamento é único e integral antes do início da operação</li>
+</ul>
+
+
+
+<h3>5. Implantação e Operação</h3>
+
+<p>Após o fechamento da captação, seja por tempo expirado e/ou valor alvo atingido, a Base A.I inicia o processo de implantação:</p>
+
+<p><strong>Etapas técnicas:</strong></p>
+<p>1. Aquisição das GPUs diretamente dos fabricantes (NVIDIA, AMD, Dell, Supermicro)  </p>
+<p>2. Transporte e instalação nos data centers parceiros (Tier III e IV)  </p>
+<p>3. Configuração de rede, testes de performance e segurança  </p>
+<p>4. Ativação do dashboard operacional e início das operações de aluguel computacional  </p>
+
+<p>O prazo médio entre a assinatura e o início das operações é de <strong>60 a 90 dias</strong>, dependendo da disponibilidade de hardware e logística de implantação.</p>
+
+
+
+<h3>6. Receita e Distribuição</h3>
+
+<p>Os clusters entram em operação com contratos de uso firmados com empresas de IA — incluindo <strong>startups, provedores de nuvem, universidades e big techs</strong> (como Amazon, Google, Meta e OpenAI, que globalmente alugam GPUs em modelos semelhantes).  </p>
+<p>A receita operacional é consolidada mensalmente e distribuída proporcionalmente aos parceiros.</p>
+
+<p><strong>Fluxo de repasse:</strong></p>
+<ul>
+<li>Fechamento do mês: até o último dia útil</li>
+<li>Cálculo de receita líquida operacional</li>
+<li>Repasse ao parceiro até o <strong>5º dia útil do mês seguinte</strong></li>
+<li>Comprovante e relatório enviados por e-mail</li>
+</ul>
+
+<p>A Base A.I não realiza retenção de impostos — cada parceiro é responsável pela declaração conforme sua estrutura fiscal (pessoa física ou jurídica).</p>
+
+
+
+<h2>Modalidades de Participação</h2>
+
+<h3>Pool Compartilhado</h3>
+
+<p><strong>Ideal para quem busca diversificação e praticidade.</strong></p>
+
+<ul>
+<li>Participação proporcional em múltiplas GPUs</li>
+<li>Risco diluído entre clusters e clientes</li>
+<li>Gestão técnica e operacional 100% da Base A.I</li>
+<li>Relatórios mensais consolidados</li>
+</ul>
+
+<p><strong>Vantagens:</strong>  </p>
+<p>Maior previsibilidade, custo de entrada reduzido e operação totalmente passiva.</p>
+
+
+
+<h3>Alocação Dedicada</h3>
+
+<p><strong>Voltada a parceiros que desejam controle e exclusividade.</strong></p>
+
+<ul>
+<li>Fração específica de uma GPU ou cluster</li>
+<li>Transparência total sobre modelo, localização e performance</li>
+<li>Receita vinculada diretamente ao ativo alocado</li>
+<li>Opção de uso próprio (PaaS ou pesquisa aplicada)</li>
+</ul>
+
+<p><strong>Vantagens:</strong>  </p>
+<p>Maior controle, customização técnica e potencial de retorno proporcional ao desempenho do ativo.</p>
+
+
+
+<h2>Acompanhamento e Relacionamento</h2>
+
+<p>A Base A.I mantém comunicação contínua com todos os parceiros durante o ciclo operacional.</p>
+
+<p><strong>Relatórios mensais:</strong></p>
+<ul>
+<li>Utilização de GPU e uptime do cluster</li>
+<li>Receita operacional bruta e líquida</li>
+<li>Contratos de locação ativos</li>
+<li>Indicadores de eficiência energética</li>
+</ul>
+
+<p><strong>Canais de contato:</strong></p>
+<ul>
+<li>E-mail: contato@baseai.capital</li>
+<li>Reuniões trimestrais com a equipe executiva</li>
+<li>Webinars e atualizações de mercado</li>
+<li>Acesso ao dashboard com métricas de performance</li>
+</ul>
+
+
+
+<h2>Conclusão</h2>
+
+<p>Participar da <strong>Base A.I</strong> significa integrar-se a um ecossistema real da economia de infraestrutura de Inteligência Artificial —  </p>
+<p>onde <strong>ativos físicos de alta performance</strong> geram <strong>receitas contratuais previsíveis</strong> com <strong>transparência total</strong>.  </p>
+
+<p>É uma oportunidade de estar exposto ao mercado mais promissor do século: <strong>o poder computacional que sustenta toda a IA global</strong>.</p>
+
+<p>📩 <strong>Contato oficial:</strong> contato@baseai.capital  </p>
+
+
+
+<p>*Este material é descritivo e institucional. Não constitui oferta pública, garantia de rentabilidade ou recomendação de investimento.*</p>
+                
+                <!-- Navigation -->
+                <div class="page-nav">
+                    
+        <a href="estrutura-financeira.html" class="nav-btn">
+            <span class="nav-direction">← Anterior</span>
+            <span class="nav-title">Estrutura Financeira</span>
+        </a>
+        <a href="governanca.html" class="nav-btn nav-btn-next">
+            <span class="nav-direction">Próximo →</span>
+            <span class="nav-title">Governança</span>
+        </a>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            const overlay = document.querySelector('.overlay');
+            
+            sidebar.classList.toggle('active');
+            overlay.classList.toggle('active');
+        }
+
+        // Close sidebar when clicking on nav links (mobile)
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', () => {
+                if (window.innerWidth <= 768) {
+                    toggleSidebar();
+                }
+            });
+        });
+    </script>
+</body>
+</html>

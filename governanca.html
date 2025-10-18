@@ -1,0 +1,736 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Governança - Base A.I</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            color: #2d3748;
+            background: #ffffff;
+        }
+        
+        .container {
+            display: flex;
+            min-height: 100vh;
+        }
+        
+        .sidebar {
+            width: 280px;
+            background: #f7fafc;
+            border-right: 1px solid #e2e8f0;
+            padding: 2rem 0;
+            position: fixed;
+            height: 100vh;
+            overflow-y: auto;
+            transform: translateX(-100%);
+            transition: transform 0.3s ease;
+            z-index: 1000;
+        }
+        
+        .sidebar.active {
+            transform: translateX(0);
+        }
+        
+        @media (min-width: 769px) {
+            .sidebar {
+                transform: translateX(0);
+                position: sticky;
+                top: 0;
+            }
+        }
+        
+        .sidebar-header {
+            padding: 0 1.5rem 1rem;
+            border-bottom: 1px solid #e2e8f0;
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+        
+        .logo {
+            width: 120px;
+            height: auto;
+            margin-bottom: 0.5rem;
+        }
+        
+        .sidebar-header h1 {
+            font-size: 1.5rem;
+            color: #1a365d;
+            margin-bottom: 0.5rem;
+        }
+        
+        .sidebar-header p {
+            font-size: 0.875rem;
+            color: #718096;
+        }
+        
+        .nav-list {
+            list-style: none;
+        }
+        
+        .nav-item {
+            margin: 0;
+        }
+        
+        .nav-link {
+            display: flex;
+            align-items: center;
+            padding: 0.75rem 1.5rem;
+            text-decoration: none;
+            color: #2d3748;
+            border-left: 3px solid transparent;
+            transition: all 0.2s ease;
+        }
+        
+        .nav-link:hover {
+            background: #edf2f7;
+            color: #3182ce;
+        }
+        
+        .nav-link.active {
+            background: #bee3f8;
+            color: #3182ce;
+            border-left-color: #3182ce;
+            font-weight: 600;
+        }
+        
+        .nav-number {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 1.5rem;
+            height: 1.5rem;
+            margin-right: 0.75rem;
+            font-size: 0.75rem;
+            font-weight: 600;
+            background: #e2e8f0;
+            color: #718096;
+            border-radius: 50%;
+        }
+        
+        .nav-link.active .nav-number {
+            background: #3182ce;
+            color: white;
+        }
+        
+        .sidebar-footer {
+            margin-top: auto;
+            padding: 1.5rem;
+            border-top: 1px solid #e2e8f0;
+            font-size: 0.75rem;
+            color: #718096;
+        }
+        
+        .sidebar-footer a {
+            color: #3182ce;
+            text-decoration: none;
+        }
+        
+        .main-content {
+            flex: 1;
+            margin-left: 0;
+            padding: 2rem;
+        }
+        
+        @media (min-width: 769px) {
+            .main-content {
+                margin-left: 280px;
+                padding: 3rem 2rem;
+            }
+        }
+        
+        .content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .mobile-toggle {
+            display: block;
+            position: fixed;
+            top: 1rem;
+            left: 1rem;
+            z-index: 1001;
+            background: #1a365d;
+            color: white;
+            border: none;
+            padding: 0.5rem;
+            border-radius: 0.375rem;
+            cursor: pointer;
+        }
+        
+        @media (min-width: 769px) {
+            .mobile-toggle {
+                display: none;
+            }
+        }
+        
+        .overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 999;
+        }
+        
+        .overlay.active {
+            display: block;
+        }
+        
+        h1, h2, h3 {
+            color: #1a365d;
+            margin: 2rem 0 1rem;
+        }
+        
+        h1 {
+            font-size: 2.25rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        h2 {
+            font-size: 1.875rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid #e2e8f0;
+        }
+        
+        h3 {
+            font-size: 1.5rem;
+        }
+        
+        p {
+            margin: 1rem 0;
+            line-height: 1.7;
+        }
+        
+        blockquote {
+            margin: 2rem 0;
+            padding: 1.5rem;
+            background: #f7fafc;
+            border-left: 4px solid #3182ce;
+            border-radius: 0 0.375rem 0.375rem 0;
+            font-style: italic;
+        }
+        
+        ul, ol {
+            margin: 1rem 0;
+            padding-left: 2rem;
+        }
+        
+        li {
+            margin: 0.5rem 0;
+        }
+        
+        a {
+            color: #3182ce;
+            text-decoration: none;
+        }
+        
+        a:hover {
+            text-decoration: underline;
+        }
+        
+        strong {
+            font-weight: 600;
+            color: #1a365d;
+        }
+        
+        .page-nav {
+            margin-top: 4rem;
+            padding-top: 2rem;
+            border-top: 1px solid #e2e8f0;
+            display: flex;
+            justify-content: space-between;
+            gap: 1rem;
+        }
+        
+        .nav-btn {
+            padding: 1rem 1.5rem;
+            background: #f7fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 0.5rem;
+            text-decoration: none;
+            color: #2d3748;
+            transition: all 0.2s ease;
+            flex: 1;
+            max-width: 45%;
+        }
+        
+        .nav-btn:hover {
+            background: #edf2f7;
+            border-color: #3182ce;
+            transform: translateY(-1px);
+        }
+        
+        .nav-btn-next {
+            text-align: right;
+        }
+        
+        .nav-direction {
+            font-size: 0.875rem;
+            color: #718096;
+            display: block;
+            margin-bottom: 0.25rem;
+        }
+        
+        .nav-title {
+            font-weight: 600;
+            color: #1a365d;
+        }
+        
+        @media (max-width: 768px) {
+            .page-nav {
+                flex-direction: column;
+            }
+            .nav-btn {
+                max-width: 100%;
+            }
+            .content {
+                margin-top: 3rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Mobile Toggle -->
+        <button class="mobile-toggle" onclick="toggleSidebar()">☰</button>
+        
+        <!-- Overlay -->
+        <div class="overlay" onclick="toggleSidebar()"></div>
+        
+        <!-- Sidebar -->
+        <nav class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <img src="logo.png" alt="Base A.I Logo" class="logo">
+                <p>Whitepaper</p>
+            </div>
+            
+            <ul class="nav-list">
+                <li class="nav-item">
+                    <a href="index.html" class="nav-link ">
+                        <span class="nav-number">1</span>
+                        <span>Introdução</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="contexto-de-mercado.html" class="nav-link ">
+                        <span class="nav-number">2</span>
+                        <span>Contexto de Mercado</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="modelo-de-negocio.html" class="nav-link ">
+                        <span class="nav-number">3</span>
+                        <span>Modelo de Negócio</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="infraestrutura.html" class="nav-link ">
+                        <span class="nav-number">4</span>
+                        <span>Infraestrutura</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="estrutura-financeira.html" class="nav-link ">
+                        <span class="nav-number">5</span>
+                        <span>Estrutura Financeira</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="processo-de-investimento.html" class="nav-link ">
+                        <span class="nav-number">6</span>
+                        <span>Processo de Investimento</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="governanca.html" class="nav-link active">
+                        <span class="nav-number">7</span>
+                        <span>Governança</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="consideracoes.html" class="nav-link ">
+                        <span class="nav-number">8</span>
+                        <span>Considerações</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="anexos.html" class="nav-link ">
+                        <span class="nav-number">9</span>
+                        <span>Anexos</span>
+                    </a>
+                </li>
+            </ul>
+            
+            <div class="sidebar-footer">
+                <p><strong>Contato:</strong></p>
+                <p><a href="mailto:contato@baseai.capital">contato@baseai.capital</a></p>
+                <p><a href="https://baseai.capital" target="_blank">baseai.capital</a></p>
+            </div>
+        </nav>
+        
+        <!-- Main Content -->
+        <main class="main-content">
+            <div class="content">
+                <h1>Governança e Transparência</h1>
+
+                <h2>Padrões Institucionais de Excelência</h2>
+
+<p>A <strong>Base A.I</strong> adota práticas de governança compatíveis com os mais altos padrões institucionais, garantindo transparência, accountability e proteção aos investidores. Nossa estrutura de governança é o alicerce da confiança que sustenta os retornos de nossos parceiros.</p>
+
+<h2>Estrutura de Governança</h2>
+
+<h3>Conselho de Administração</h3>
+
+<p><strong>Composição</strong></p>
+<ul>
+<li><strong>CEO/Founder</strong>: Liderança executiva e visão estratégica</li>
+<li><strong>CTO</strong>: Supervisão técnica e inovação</li>
+<li><strong>Conselheiros Independentes</strong>: 2 membros externos</li>
+</ul>
+
+<p><strong>Responsabilidades</strong></p>
+<ul>
+<li>Aprovação de estratégia e orçamento anual</li>
+<li>Supervisão de riscos operacionais</li>
+<li>Definição de políticas de investimento</li>
+<li>Aprovação de parcerias estratégicas</li>
+<li>Monitoramento de performance</li>
+</ul>
+
+<h3>Comitês Especializados</h3>
+
+<p><strong>Comitê de Auditoria</strong></p>
+<ul>
+<li>Supervisão de controles internos</li>
+<li>Aprovação de auditores independentes</li>
+<li>Revisão de demonstrações financeiras</li>
+<li>Monitoramento de compliance</li>
+</ul>
+
+<p><strong>Comitê de Riscos</strong></p>
+<ul>
+<li>Identificação e mitigação de riscos</li>
+<li>Políticas de segurança cibernética</li>
+<li>Continuidade de negócios</li>
+<li>Seguros e proteções</li>
+</ul>
+
+<p><strong>Comitê de Investimentos</strong></p>
+<ul>
+<li>Análise de oportunidades de aquisição</li>
+<li>Due diligence de fornecedores</li>
+<li>Aprovação de novos produtos</li>
+<li>Otimização de portfólio</li>
+</ul>
+
+<h2>Auditoria e Compliance</h2>
+
+<h3>Auditoria Independente</h3>
+
+<p><strong>Ernst & Young (EY)</strong></p>
+<ul>
+<li>Auditoria anual das demonstrações financeiras</li>
+<li>Revisão trimestral de controles internos</li>
+<li>Validação de metodologias de precificação</li>
+<li>Certificação de compliance regulatório</li>
+</ul>
+
+<p><strong>Escopo da Auditoria</strong></p>
+<ul>
+<li>Receitas e distribuições aos investidores</li>
+<li>Valoração de ativos (GPUs e contratos)</li>
+<li>Controles de acesso e segurança</li>
+<li>Políticas de governança corporativa</li>
+</ul>
+
+<h3>Compliance Regulatório</h3>
+
+<p><strong>CVM - Comissão de Valores Mobiliários</strong></p>
+<ul>
+<li>Registro como fundo de investimento privado</li>
+<li>Relatórios mensais de posição</li>
+<li>Compliance com Instrução 588</li>
+<li>Política de prevenção à lavagem de dinheiro</li>
+</ul>
+
+<p><strong>BACEN - Banco Central</strong></p>
+<ul>
+<li>Registro de operações cambiais</li>
+<li>Compliance com regulamentação financeira</li>
+<li>Controles de capital estrangeiro</li>
+<li>Política de know your customer (KYC)</li>
+</ul>
+
+<h2>Transparência Operacional</h2>
+
+<h3>Dashboard em Tempo Real</h3>
+
+<p><strong>Métricas Públicas</strong> </p>
+<ul>
+<li>Total de GPUs operacionais</li>
+<li>Utilização média do cluster (%)</li>
+<li>Receita mensal acumulada (R$)</li>
+<li>Número de clientes ativos</li>
+<li>Uptime médio dos sistemas (%)</li>
+</ul>
+
+<p><strong>Métricas Privadas</strong> (acesso restrito a investidores)</p>
+<ul>
+<li>Receita por GPU individual</li>
+<li>Margem de contribuição por contrato</li>
+<li>Pipeline de novos clientes</li>
+<li>Projeções financeiras detalhadas</li>
+<li>Análise de performance vs. benchmark</li>
+</ul>
+
+<h3>Relatórios Mensais</h3>
+
+<p><strong>Relatório Operacional</strong></p>
+<ul>
+<li>Performance de cada GPU/cluster</li>
+<li>Novos contratos firmados</li>
+<li>Incidentes e resoluções</li>
+<li>Atualizações de infraestrutura</li>
+<li>Métricas de satisfação do cliente</li>
+</ul>
+
+<p><strong>Relatório Financeiro</strong></p>
+<ul>
+<li>Receita bruta e líquida</li>
+<li>Custos operacionais detalhados</li>
+<li>Distribuições aos investidores</li>
+<li>Fluxo de caixa projetado</li>
+<li>Análise de variações vs. orçamento</li>
+</ul>
+
+<h2>Políticas de Governança</h2>
+
+<h3>Política de Conflitos de Interesse</h3>
+
+<p><strong>Identificação</strong></p>
+<ul>
+<li>Mapeamento de relacionamentos comerciais</li>
+<li>Declaração anual de interesses</li>
+<li>Aprovação prévia de transações relacionadas</li>
+<li>Monitoramento contínuo</li>
+</ul>
+
+<p><strong>Mitigação</strong></p>
+<ul>
+<li>Processo de aprovação independente</li>
+<li>Precificação por terceiros</li>
+<li>Transparência total aos investidores</li>
+<li>Auditoria de transações relacionadas</li>
+</ul>
+
+<h3>Política de Investimentos</h3>
+
+<p><strong>Critérios de Seleção</strong></p>
+<ul>
+<li>ROI mínimo de 15% ao ano</li>
+<li>Contratos com prazo mínimo de 6 meses</li>
+<li>Clientes com rating de crédito adequado</li>
+<li>Diversificação por setor e geografia</li>
+</ul>
+
+<p><strong>Limites de Concentração</strong></p>
+<ul>
+<li>Máximo 20% da receita de um cliente</li>
+<li>Máximo 30% em um tipo de GPU</li>
+<li>Máximo 40% em uma localização</li>
+<li>Reserva mínima de 10% em caixa</li>
+</ul>
+
+<h3>Política de Distribuição</h3>
+
+<p><strong>Cronograma</strong></p>
+<ul>
+<li>Distribuição mensal até o 5º dia útil</li>
+<li>Cálculo baseado em receita líquida</li>
+<li>Retenção de 5% para reserva operacional</li>
+<li>Transparência total do cálculo</li>
+</ul>
+
+<p><strong>Metodologia</strong></p>
+<ul>
+<li>Receita bruta menos custos operacionais</li>
+<li>Dedução de taxas de administração (2% a.a.)</li>
+<li>Distribuição proporcional à participação</li>
+<li>Reinvestimento automático opcional</li>
+</ul>
+
+<h2>Gestão de Riscos</h2>
+
+<h3>Riscos Identificados</h3>
+
+<p><strong>Tecnológicos</strong></p>
+<ul>
+<li>Obsolescência de hardware</li>
+<li>Falhas de equipamento</li>
+<li>Ataques cibernéticos</li>
+<li>Interrupções de energia</li>
+</ul>
+
+<p><strong>Comerciais</strong></p>
+<ul>
+<li>Concentração de clientes</li>
+<li>Mudanças de demanda</li>
+<li>Competição de preços</li>
+<li>Inadimplência</li>
+</ul>
+
+<p><strong>Operacionais</strong></p>
+<ul>
+<li>Falhas de data center</li>
+<li>Problemas de conectividade</li>
+<li>Questões regulatórias</li>
+<li>Recursos humanos</li>
+</ul>
+
+<h3>Mitigação de Riscos</h3>
+
+<p><strong>Seguros</strong></p>
+<ul>
+<li>Seguro de equipamentos (100% do valor)</li>
+<li>Seguro de responsabilidade civil</li>
+<li>Seguro cibernético</li>
+<li>Seguro de interrupção de negócios</li>
+</ul>
+
+<p><strong>Controles Operacionais</strong></p>
+<ul>
+<li>Redundância em data centers</li>
+<li>Backup de energia e conectividade</li>
+<li>Monitoramento 24/7</li>
+<li>Planos de continuidade de negócios</li>
+</ul>
+
+<p><strong>Diversificação</strong></p>
+<ul>
+<li>Múltiplos tipos de GPU</li>
+<li>Diversos data centers</li>
+<li>Clientes de diferentes setores</li>
+<li>Contratos de diferentes durações</li>
+</ul>
+
+<h2>Critérios ESG</h2>
+
+<h3>Environmental (Ambiental)</h3>
+
+<p><strong>Eficiência Energética</strong></p>
+<ul>
+<li>Data centers com PUE < 1.3</li>
+<li>Uso de energia renovável quando disponível</li>
+<li>Otimização de refrigeração</li>
+<li>Monitoramento de pegada de carbono</li>
+</ul>
+
+<h3>Social (Social)</h3>
+
+<p><strong>Responsabilidade Social</strong></p>
+<ul>
+<li>Acesso subsidiado para pesquisa acadêmica</li>
+<li>Programas de educação em IA</li>
+<li>Diversidade na equipe</li>
+<li>Impacto positivo na comunidade</li>
+</ul>
+
+<h3>Governance (Governança)</h3>
+
+<p><strong>Melhores Práticas</strong></p>
+<ul>
+<li>Transparência total de operações</li>
+<li>Auditoria independente</li>
+<li>Compliance rigoroso</li>
+<li>Proteção aos investidores</li>
+</ul>
+
+<h2>Seleção de Parceiros</h2>
+
+<h3>Critérios Técnicos</h3>
+
+<p><strong>Data Centers</strong></p>
+<ul>
+<li>Certificação Tier III ou superior</li>
+<li>SLA de uptime > 99.9%</li>
+<li>Redundância de energia e conectividade</li>
+<li>Segurança física e lógica</li>
+</ul>
+
+<p><strong>Fornecedores de GPU</strong></p>
+<ul>
+<li>Fabricantes autorizados</li>
+<li>Garantia mínima de 3 anos</li>
+<li>Suporte técnico 24/7</li>
+<li>Histórico de confiabilidade</li>
+</ul>
+
+<h3>Critérios Financeiros</h3>
+
+<p><strong>Estabilidade</strong></p>
+<ul>
+<li>Rating de crédito mínimo BBB</li>
+<li>Histórico financeiro de 5+ anos</li>
+<li>Capitalização adequada</li>
+<li>Seguros apropriados</li>
+</ul>
+
+<p><strong>Termos Comerciais</strong></p>
+<ul>
+<li>Preços competitivos</li>
+<li>Flexibilidade de pagamento</li>
+<li>Contratos de longo prazo</li>
+<li>Penalidades por não cumprimento</li>
+</ul>
+
+
+
+<p>*A governança é o alicerce da confiança — cada investidor tem acesso aos indicadores que sustentam seu retorno.*</p>
+                
+                <!-- Navigation -->
+                <div class="page-nav">
+                    
+        <a href="processo-de-investimento.html" class="nav-btn">
+            <span class="nav-direction">← Anterior</span>
+            <span class="nav-title">Processo de Investimento</span>
+        </a>
+        <a href="consideracoes.html" class="nav-btn nav-btn-next">
+            <span class="nav-direction">Próximo →</span>
+            <span class="nav-title">Considerações</span>
+        </a>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            const overlay = document.querySelector('.overlay');
+            
+            sidebar.classList.toggle('active');
+            overlay.classList.toggle('active');
+        }
+
+        // Close sidebar when clicking on nav links (mobile)
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', () => {
+                if (window.innerWidth <= 768) {
+                    toggleSidebar();
+                }
+            });
+        });
+    </script>
+</body>
+</html>

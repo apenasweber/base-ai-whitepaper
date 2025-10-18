@@ -1,0 +1,798 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Anexos - Base A.I</title>
+    <style>
+         {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            color: #2d3748;
+            background: #ffffff;
+        }
+        
+        .container {
+            display: flex;
+            min-height: 100vh;
+        }
+        
+        .sidebar {
+            width: 280px;
+            background: #f7fafc;
+            border-right: 1px solid #e2e8f0;
+            padding: 2rem 0;
+            position: fixed;
+            height: 100vh;
+            overflow-y: auto;
+            transform: translateX(-100%);
+            transition: transform 0.3s ease;
+            z-index: 1000;
+        }
+        
+        .sidebar.active {
+            transform: translateX(0);
+        }
+        
+        @media (min-width: 769px) {
+            .sidebar {
+                transform: translateX(0);
+                position: sticky;
+                top: 0;
+            }
+        }
+        
+        .sidebar-header {
+            padding: 0 1.5rem 1rem;
+            border-bottom: 1px solid #e2e8f0;
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+        
+        .logo {
+            width: 120px;
+            height: auto;
+            margin-bottom: 0.5rem;
+        }
+        
+        .sidebar-header h1 {
+            font-size: 1.5rem;
+            color: #1a365d;
+            margin-bottom: 0.5rem;
+        }
+        
+        .sidebar-header p {
+            font-size: 0.875rem;
+            color: #718096;
+        }
+        
+        .nav-list {
+            list-style: none;
+        }
+        
+        .nav-item {
+            margin: 0;
+        }
+        
+        .nav-link {
+            display: flex;
+            align-items: center;
+            padding: 0.75rem 1.5rem;
+            text-decoration: none;
+            color: #2d3748;
+            border-left: 3px solid transparent;
+            transition: all 0.2s ease;
+        }
+        
+        .nav-link:hover {
+            background: #edf2f7;
+            color: #3182ce;
+        }
+        
+        .nav-link.active {
+            background: #bee3f8;
+            color: #3182ce;
+            border-left-color: #3182ce;
+            font-weight: 600;
+        }
+        
+        .nav-number {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 1.5rem;
+            height: 1.5rem;
+            margin-right: 0.75rem;
+            font-size: 0.75rem;
+            font-weight: 600;
+            background: #e2e8f0;
+            color: #718096;
+            border-radius: 50%;
+        }
+        
+        .nav-link.active .nav-number {
+            background: #3182ce;
+            color: white;
+        }
+        
+        .sidebar-footer {
+            margin-top: auto;
+            padding: 1.5rem;
+            border-top: 1px solid #e2e8f0;
+            font-size: 0.75rem;
+            color: #718096;
+        }
+        
+        .sidebar-footer a {
+            color: #3182ce;
+            text-decoration: none;
+        }
+        
+        .main-content {
+            flex: 1;
+            margin-left: 0;
+            padding: 2rem;
+        }
+        
+        @media (min-width: 769px) {
+            .main-content {
+                margin-left: 280px;
+                padding: 3rem 2rem;
+            }
+        }
+        
+        .content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .mobile-toggle {
+            display: block;
+            position: fixed;
+            top: 1rem;
+            left: 1rem;
+            z-index: 1001;
+            background: #1a365d;
+            color: white;
+            border: none;
+            padding: 0.5rem;
+            border-radius: 0.375rem;
+            cursor: pointer;
+        }
+        
+        @media (min-width: 769px) {
+            .mobile-toggle {
+                display: none;
+            }
+        }
+        
+        .overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 999;
+        }
+        
+        .overlay.active {
+            display: block;
+        }
+        
+        h1, h2, h3 {
+            color: #1a365d;
+            margin: 2rem 0 1rem;
+        }
+        
+        h1 {
+            font-size: 2.25rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        h2 {
+            font-size: 1.875rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid #e2e8f0;
+        }
+        
+        h3 {
+            font-size: 1.5rem;
+        }
+        
+        p {
+            margin: 1rem 0;
+            line-height: 1.7;
+        }
+        
+        blockquote {
+            margin: 2rem 0;
+            padding: 1.5rem;
+            background: #f7fafc;
+            border-left: 4px solid #3182ce;
+            border-radius: 0 0.375rem 0.375rem 0;
+            font-style: italic;
+        }
+        
+        ul, ol {
+            margin: 1rem 0;
+            padding-left: 2rem;
+        }
+        
+        li {
+            margin: 0.5rem 0;
+        }
+        
+        a {
+            color: #3182ce;
+            text-decoration: none;
+        }
+        
+        a:hover {
+            text-decoration: underline;
+        }
+        
+        strong {
+            font-weight: 600;
+            color: #1a365d;
+        }
+        
+        .page-nav {
+            margin-top: 4rem;
+            padding-top: 2rem;
+            border-top: 1px solid #e2e8f0;
+            display: flex;
+            justify-content: space-between;
+            gap: 1rem;
+        }
+        
+        .nav-btn {
+            padding: 1rem 1.5rem;
+            background: #f7fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 0.5rem;
+            text-decoration: none;
+            color: #2d3748;
+            transition: all 0.2s ease;
+            flex: 1;
+            max-width: 45%;
+        }
+        
+        .nav-btn:hover {
+            background: #edf2f7;
+            border-color: #3182ce;
+            transform: translateY(-1px);
+        }
+        
+        .nav-btn-next {
+            text-align: right;
+        }
+        
+        .nav-direction {
+            font-size: 0.875rem;
+            color: #718096;
+            display: block;
+            margin-bottom: 0.25rem;
+        }
+        
+        .nav-title {
+            font-weight: 600;
+            color: #1a365d;
+        }
+        
+        @media (max-width: 768px) {
+            .page-nav {
+                flex-direction: column;
+            }
+            .nav-btn {
+                max-width: 100%;
+            }
+            .content {
+                margin-top: 3rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Mobile Toggle -->
+        <button class="mobile-toggle" onclick="toggleSidebar()">☰</button>
+        
+        <!-- Overlay -->
+        <div class="overlay" onclick="toggleSidebar()"></div>
+        
+        <!-- Sidebar -->
+        <nav class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <img src="logo.png" alt="Base A.I Logo" class="logo">
+                <p>Whitepaper</p>
+            </div>
+            
+            <ul class="nav-list">
+                <li class="nav-item">
+                    <a href="index.html" class="nav-link ">
+                        <span class="nav-number">1</span>
+                        <span>Introdução</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="contexto-de-mercado.html" class="nav-link ">
+                        <span class="nav-number">2</span>
+                        <span>Contexto de Mercado</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="modelo-de-negocio.html" class="nav-link ">
+                        <span class="nav-number">3</span>
+                        <span>Modelo de Negócio</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="infraestrutura.html" class="nav-link ">
+                        <span class="nav-number">4</span>
+                        <span>Infraestrutura</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="estrutura-financeira.html" class="nav-link ">
+                        <span class="nav-number">5</span>
+                        <span>Estrutura Financeira</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="processo-de-investimento.html" class="nav-link ">
+                        <span class="nav-number">6</span>
+                        <span>Processo de Investimento</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="governanca.html" class="nav-link ">
+                        <span class="nav-number">7</span>
+                        <span>Governança</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="consideracoes.html" class="nav-link ">
+                        <span class="nav-number">8</span>
+                        <span>Considerações</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="anexos.html" class="nav-link active">
+                        <span class="nav-number">9</span>
+                        <span>Anexos</span>
+                    </a>
+                </li>
+            </ul>
+            
+            <div class="sidebar-footer">
+                <p><strong>Contato:</strong></p>
+                <p><a href="mailto:contato@baseai.capital">contato@baseai.capital</a></p>
+                <p><a href="https://baseai.capital" target="_blank">baseai.capital</a></p>
+            </div>
+        </nav>
+        
+        <!-- Main Content -->
+        <main class="main-content">
+            <div class="content">
+                <h1>Anexos</h1>
+
+                <h2>Fontes, Glossário e Disclaimers</h2>
+
+                <p>Esta seção consolida as referências técnicas, definições e informações complementares que fundamentam o whitepaper da <strong>Base A.I</strong>. Todas as fontes foram verificadas e são de instituições reconhecidas no mercado.</p>
+
+                <h2>Fontes de Mercado</h2>
+
+                <h3>Relatórios de Pesquisa</h3>
+
+<p><strong>IDC (International Data Corporation)</strong></p>
+<ul>
+<li>AI Infrastructure Market Forecast 2025–2028</li>
+<li>Publicação: Setembro 2024</li>
+<li>Projeção: Mercado de US$ 100 bilhões até 2028</li>
+<li>Crescimento anual composto: 28.5%</li>
+</ul>
+
+<p><strong>Forbes Technology Council</strong></p>
+<ul>
+<li>Global AI Data Center Spending 2025 Report</li>
+<li>Publicação: Outubro 2024</li>
+<li>Investimento projetado: US$ 1.5 trilhão em 2025</li>
+<li>Crescimento de data centers: 45% a.a.</li>
+</ul>
+
+<p><strong>Los Angeles Times Business</strong></p>
+<ul>
+<li>AI Infrastructure Boom to Reach $1.5 Trillion</li>
+<li>Publicação: Novembro 2024</li>
+<li>Análise de investimentos em GPU e data centers</li>
+<li>Impacto na cadeia de suprimentos global</li>
+</ul>
+
+<h3>Análises Especializadas</h3>
+
+<p><strong>CoinDesk Research</strong></p>
+<ul>
+<li>Compute Labs: Tokenized AI Compute Models (2025)</li>
+<li>Publicação: Dezembro 2024</li>
+<li>Análise de modelos de tokenização de GPUs</li>
+<li>Comparativo com mercado tradicional</li>
+</ul>
+
+<p><strong>McKinsey Global Institute</strong></p>
+<ul>
+<li>The Economic Potential of Generative AI</li>
+<li>Publicação: Junho 2024</li>
+<li>Impacto econômico: US$ 2.6-4.4 trilhões anuais</li>
+<li>Demanda por infraestrutura computacional</li>
+</ul>
+
+<p><strong>Goldman Sachs Research</strong></p>
+<ul>
+<li>AI Investment Boom: Infrastructure Requirements</li>
+<li>Publicação: Agosto 2024</li>
+<li>Análise de CAPEX em data centers</li>
+<li>Projeções de demanda por GPUs</li>
+</ul>
+
+<h3>Dados de Mercado</h3>
+<p><strong>NVIDIA Corporation</strong></p>
+<ul>
+<li>Data Center Revenue Reports Q1-Q4 2024</li>
+<li>Crescimento de 427% em receita de data center</li>
+<li>Backlog de pedidos superior a US$ 50 bilhões</li>
+</ul>
+
+<p><strong>AMD Investor Relations</strong></p>
+<ul>
+<li>Data Center and AI Revenue Growth</li>
+<li>Crescimento de 80% em segmento de IA</li>
+<li>Projeções para MI300X e próximas gerações</li>
+</ul>
+
+<h2>Glossário Técnico</h2>
+<h3>Infraestrutura de IA</h3>
+<p><strong>GPU (Graphics Processing Unit)</strong></p>
+<ul>
+<li>Unidade de processamento gráfico especializada</li>
+<li>Otimizada para computação paralela massiva</li>
+<li>Essencial para treinamento e inferência de IA</li>
+<li>Exemplos: NVIDIA H100, AMD MI300X</li>
+</ul>
+
+<p><strong>AI Training</strong></p>
+<ul>
+<li>Processo de treinamento de modelos de IA</li>
+<li>Requer grandes volumes de dados e computação</li>
+<li>Utiliza algoritmos de aprendizado profundo</li>
+<li>Pode levar semanas ou meses para modelos grandes</li>
+</ul>
+
+<p><strong>AI Inference</strong></p>
+<ul>
+<li>Execução de modelos de IA já treinados</li>
+<li>Processamento de dados em tempo real</li>
+<li>Menor demanda computacional que training</li>
+<li>Usado em aplicações de produção</li>
+</ul>
+
+<p><strong>Data Center</strong></p>
+<ul>
+<li>Instalação física para hospedagem de servidores</li>
+<li>Infraestrutura de energia, refrigeração e rede</li>
+<li>Certificações de segurança e disponibilidade</li>
+<li>Exemplos: Equinix, Digital Realty</li>
+</ul>
+
+<h3>Tecnologias Específicas</h3>
+<p><strong>Colocation</strong></p>
+<ul>
+<li>Hospedagem de equipamentos próprios</li>
+<li>Em data centers de terceiros</li>
+<li>Compartilhamento de infraestrutura</li>
+<li>Redução de custos operacionais</li>
+</ul>
+
+<p><strong>HBM (High Bandwidth Memory)</strong></p>
+<ul>
+<li>Memória de alta velocidade para GPUs</li>
+<li>Bandwidth superior a 1TB/s</li>
+<li>Essencial para workloads de IA</li>
+<li>Tecnologia proprietária (Samsung, SK Hynix)</li>
+</ul>
+
+<p><strong>InfiniBand</strong></p>
+<ul>
+<li>Protocolo de rede de alta performance</li>
+<li>Latência ultra-baixa (< 1 microsegundo)</li>
+<li>Usado para comunicação entre GPUs</li>
+<li>Padrão em clusters de IA</li>
+</ul>
+
+<p><strong>Tensor Cores</strong></p>
+<ul>
+<li>Unidades especializadas em operações de IA</li>
+<li>Aceleração de multiplicação de matrizes</li>
+<li>Presente em GPUs NVIDIA modernas</li>
+<li>Até 10x mais rápido que cores tradicionais</li>
+</ul>
+
+<h3>Métricas de Performance</h3>
+<p><strong>FLOPS (Floating Point Operations Per Second)</strong></p>
+<ul>
+<li>Medida de performance computacional</li>
+<li>Expressa em TFLOPS (trilhões por segundo)</li>
+<li>Importante para comparar GPUs</li>
+<li>Varia conforme precisão (FP32, FP16, INT8)</li>
+</ul>
+
+<p><strong>TOPS (Tera Operations Per Second)</strong></p>
+<ul>
+<li>Medida específica para operações de IA</li>
+<li>Considera operações de menor precisão</li>
+<li>Mais relevante que FLOPS para IA</li>
+<li>Usado em especificações de inference</li>
+</ul>
+
+<p><strong>PUE (Power Usage Effectiveness)</strong></p>
+<ul>
+<li>Métrica de eficiência energética</li>
+<li>Razão entre energia total e energia de TI</li>
+<li>PUE ideal próximo a 1.0</li>
+<li>Padrão da indústria para data centers</li>
+</ul>
+
+<p><strong>SLA (Service Level Agreement)</strong></p>
+<ul>
+<li>Acordo de nível de serviço</li>
+<li>Define uptime garantido (ex: 99.9%)</li>
+<li>Penalidades por não cumprimento</li>
+<li>Essencial em contratos de colocation</li>
+</ul>
+
+<h3>Modelos de Negócio</h3>
+<p><strong>Revenue Share</strong></p>
+<ul>
+<li>Compartilhamento de receita</li>
+<li>Modelo usado pela Base A.I</li>
+<li>Distribuição proporcional aos investidores</li>
+<li>Transparência total de cálculos</li>
+</ul>
+
+<p><strong>CAPEX (Capital Expenditure)</strong></p>
+<ul>
+<li>Investimento em ativos fixos</li>
+<li>Aquisição de GPUs e infraestrutura</li>
+<li>Depreciação ao longo do tempo</li>
+<li>Base para cálculo de retorno</li>
+</ul>
+
+<p><strong>OPEX (Operational Expenditure)</strong></p>
+<ul>
+<li>Custos operacionais recorrentes</li>
+<li>Energia, manutenção, pessoal</li>
+<li>Impacta margem de contribuição</li>
+<li>Otimização contínua necessária</li>
+</ul>
+
+<p><strong>ROI (Return on Investment)</strong></p>
+<ul>
+<li>Retorno sobre investimento</li>
+<li>Métrica principal de performance</li>
+<li>Calculado anualmente</li>
+<li>Base para comparação com alternativas</li>
+</ul>
+
+<h2>Conformidade e Estrutura Regulatória</h2>
+
+<p>A Base A.I opera como uma <strong>empresa privada de infraestrutura tecnológica e gestão de ativos reais (data centers e GPUs)</strong>.  </p>
+<p>Nossa estrutura segue <strong>as melhores práticas de transparência, segurança e governança corporativa</strong>, mas <strong>não configura oferta pública de valores mobiliários</strong>, estando <strong>fora do escopo da CVM (Comissão de Valores Mobiliários)</strong>.</p>
+
+<p>Toda a captação é realizada de forma <strong>privada, direcionada e contratual</strong>, conforme previsto no Código Civil Brasileiro (artigos 991–996, Sociedade em Conta de Participação).  </p>
+<p>Cada investidor participa por meio de contrato privado, com análise individual de perfil e sem qualquer promessa de rentabilidade fixa.</p>
+
+
+
+<h3>Estrutura de Compliance e Governança</h3>
+
+<p><strong>Base Legal e Contratual</strong></p>
+<ul>
+<li>Código Civil Brasileiro, arts. 991–996 — Sociedade em Conta de Participação (SCP)</li>
+<li>Lei 10.406/2002 — Obrigações contratuais e direitos societários</li>
+<li>Lei 12.846/2013 — Programa de Integridade e Anticorrupção</li>
+<li>Lei 9.613/1998 — Prevenção à Lavagem de Dinheiro</li>
+</ul>
+
+<p><strong>Governança e Controles Internos</strong></p>
+<ul>
+<li>Políticas de <strong>KYC (Know Your Customer)</strong> e <strong>AML (Anti-Money Laundering)</strong> em conformidade com padrões do Banco Central e OCDE</li>
+<li><strong>Auditoria independente anual</strong> dos resultados e contratos</li>
+<li><strong>Relatórios de performance e operação</strong> mensais com rastreabilidade financeira e técnica</li>
+<li><strong>Transparência total</strong> via dashboard de uso, uptime e faturamento das GPUs</li>
+</ul>
+
+
+
+<h3>Segurança Operacional e Certificações</h3>
+
+<p>A Base A.I prioriza a operação em <strong>data centers certificados</strong> e de classe internacional.</p>
+
+<p><strong>Padrões de Segurança</strong></p>
+<ul>
+<li><strong>ISO 27001</strong> — Gestão de Segurança da Informação</li>
+<li><strong>SOC 2 Type II</strong> — Controles de segurança e disponibilidade de serviços</li>
+<li><strong>PCI DSS</strong> — Proteção de dados sensíveis e protocolos de pagamento</li>
+<li><strong>LEED Certification</strong> — Eficiência energética e sustentabilidade</li>
+</ul>
+
+<p><strong>Infraestrutura de Data Center</strong></p>
+<ul>
+<li><strong>Tier III / Tier IV (Uptime Institute)</strong> — 99.982% a 99.995% de disponibilidade</li>
+<li><strong>Redundância energética e de rede</strong>, com monitoramento 24/7</li>
+<li><strong>Contratos de colocation com provedores globais</strong> (Equinix, Scala, Odata, etc.)</li>
+</ul>
+
+
+
+<h3>Declaração de Escopo Regulatória</h3>
+
+<blockquote>
+<p><strong>Aviso Legal:</strong></p>
+<p>A Base A.I realiza captações <strong>privadas</strong>, destinadas a investidores qualificados e estratégicos.</p>
+<p>Este material tem caráter <strong>informativo e institucional</strong>, e <strong>não constitui oferta pública de valores mobiliários</strong> conforme a Lei 6.385/76, a Resolução CVM 160/22 ou regulamentos equivalentes.</p>
+<p>Os investimentos são estruturados em contratos privados de participação em receita, com base em ativos físicos reais (GPUs e data centers).</p>
+</blockquote>
+
+
+
+<h3>Conformidade Internacional</h3>
+
+<p>Para investidores estrangeiros ou operações fora do Brasil, a Base A.I observa normas de <strong>boas práticas de governança global</strong>:</p>
+<ul>
+<li><strong>GDPR (UE)</strong> — Proteção de dados pessoais</li>
+<li><strong>ISO/IEC 27018</strong> — Privacidade em nuvem</li>
+<li><strong>OECD Guidelines</strong> — Prevenção à lavagem e governança corporativa</li>
+</ul>
+
+<p>Esses padrões asseguram a operação internacional com <strong>segurança jurídica, técnica e ética</strong>, mantendo o foco em transparência e estabilidade operacional.</p>
+
+
+<h2>Contatos e Suporte</h2>
+<h3>Equipe Base A.I</h3>
+<p><strong>Relacionamento com Investidores</strong></p>
+<ul>
+<li>Email: investidores@baseai.capital</li>
+<li>Horário: Segunda a sexta, 9h às 18h</li>
+</ul>
+
+<p><strong>Suporte Técnico</strong></p>
+<ul>
+<li>Email: support@baseai.capital</li>
+<li>Portal: support.baseai.capital</li>
+<li>Telefone: +55 11 3000-0001</li>
+<li>Disponibilidade: 24/7</li>
+</ul>
+
+<p><strong>Compliance e Legal</strong></p>
+<ul>
+<li>Email: compliance@baseai.capital</li>
+<li>Telefone: +55 11 3000-0002</li>
+<li>Documentos: legal.baseai.capital</li>
+<li>Horário: Segunda a sexta, 9h às 18h</li>
+</ul>
+
+<h3>Parceiros Estratégicos</h3>
+
+<p>A Base A.I mantém parceria com <strong>profissionais e instituições independentes</strong> para garantir governança, conformidade e transparência em todas as operações.</p>
+
+<p><strong>Auditoria Independente</strong>  </p>
+<ul>
+<li>Empresa especializada em auditoria financeira e verificação de ativos de infraestrutura</li>
+<li>Responsável por validar os relatórios de performance e distribuição de receita</li>
+<li>Revisões periódicas de contratos e resultados operacionais</li>
+</ul>
+
+<p><strong>Consultoria Jurídica Especializada</strong>  </p>
+<ul>
+<li>Escritório com foco em direito empresarial e compliance regulatório</li>
+<li>Responsável pela estruturação contratual e adequação às normas brasileiras e internacionais</li>
+<li>Apoio na elaboração de contratos de investimento privado e políticas de governança</li>
+</ul>
+
+<p><strong>Custódia e Compliance Operacional</strong>  </p>
+<ul>
+<li>Instituição financeira parceira para gestão e custódia dos recursos captados</li>
+<li>Controle de fluxo financeiro, reconciliação bancária e relatórios de transparência</li>
+<li>Processos internos baseados em políticas de KYC (Know Your Customer) e AML (Anti-Money Laundering)</li>
+</ul>
+
+<p>Essas parcerias asseguram que a Base A.I opere com <strong>padrões institucionais de auditoria, governança e segurança</strong>, mesmo em um modelo de <strong>captação privada e investimento em ativos reais</strong>.</p>
+
+
+<h2>Disclaimer Final</h2>
+
+<h3>Natureza do Documento</h3>
+
+<p>Este whitepaper é um <strong>documento informativo</strong> que apresenta o modelo de negócio, estratégia e oportunidades da Base A.I. As informações contidas são baseadas em análises de mercado, projeções e premissas que podem não se materializar.</p>
+
+<h3>Não Constitui Oferta</h3>
+
+<p>Este material <strong>NÃO constitui</strong>:</p>
+<ul>
+<li>Oferta pública de valores mobiliários</li>
+<li>Recomendação personalizada de investimento</li>
+<li>Garantia de rentabilidade ou performance</li>
+<li>Assessoria financeira ou jurídica</li>
+</ul>
+
+<h3>Riscos de Investimento</h3>
+
+<p>Todo investimento envolve riscos, incluindo:</p>
+<ul>
+<li>Perda parcial ou total do capital</li>
+<li>Volatilidade de retornos</li>
+<li>Riscos operacionais e tecnológicos</li>
+<li>Mudanças regulatórias</li>
+</ul>
+
+<h3>Recomendações</h3>
+
+<p>Antes de investir, recomendamos:</p>
+<ul>
+<li>Consulta a assessores especializados</li>
+<li>Análise de adequação ao perfil</li>
+<li>Leitura completa da documentação</li>
+<li>Compreensão integral dos riscos</li>
+</ul>
+
+<h3>Atualizações</h3>
+
+<p>Este documento pode ser atualizado periodicamente. A versão mais recente está sempre disponível em <a href="https://baseai.capital/whitepaper">baseai.capital/whitepaper</a>.</p>
+
+<hr>
+
+<p><strong>Versão:</strong> 1.0<br>
+<strong>Data:</strong> Janeiro 2025<br>
+<strong>Próxima Revisão:</strong> Abril 2025</p>
+
+<p><em>Para dúvidas sobre este whitepaper, entre em contato através de info@baseai.capital</em></p>
+                
+                <!-- Navigation -->
+                <div class="page-nav">
+                    
+        <a href="consideracoes.html" class="nav-btn">
+            <span class="nav-direction">← Anterior</span>
+            <span class="nav-title">Considerações</span>
+        </a>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            const overlay = document.querySelector('.overlay');
+            
+            sidebar.classList.toggle('active');
+            overlay.classList.toggle('active');
+        }
+
+        // Close sidebar when clicking on nav links (mobile)
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', () => {
+                if (window.innerWidth <= 768) {
+                    toggleSidebar();
+                }
+            });
+        });
+    </script>
+</body>
+</html>

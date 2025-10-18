@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Introdução - Base A.I</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            color: #2d3748;
+            background: #ffffff;
+        }
+        
+        .container {
+            display: flex;
+            min-height: 100vh;
+        }
+        
+        .sidebar {
+            width: 280px;
+            background: #f7fafc;
+            border-right: 1px solid #e2e8f0;
+            padding: 2rem 0;
+            position: fixed;
+            height: 100vh;
+            overflow-y: auto;
+            transform: translateX(-100%);
+            transition: transform 0.3s ease;
+            z-index: 1000;
+        }
+        
+        .sidebar.active {
+            transform: translateX(0);
+        }
+        
+        @media (min-width: 769px) {
+            .sidebar {
+                transform: translateX(0);
+                position: sticky;
+                top: 0;
+            }
+        }
+        
+        .sidebar-header {
+            padding: 0 1.5rem 1rem;
+            border-bottom: 1px solid #e2e8f0;
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+        
+        .logo {
+            width: 120px;
+            height: auto;
+            margin-bottom: 0.5rem;
+        }
+        
+        .sidebar-header h1 {
+            font-size: 1.5rem;
+            color: #1a365d;
+            margin-bottom: 0.5rem;
+        }
+        
+        .sidebar-header p {
+            font-size: 0.875rem;
+            color: #718096;
+        }
+        
+        .nav-list {
+            list-style: none;
+        }
+        
+        .nav-item {
+            margin: 0;
+        }
+        
+        .nav-link {
+            display: flex;
+            align-items: center;
+            padding: 0.75rem 1.5rem;
+            text-decoration: none;
+            color: #2d3748;
+            border-left: 3px solid transparent;
+            transition: all 0.2s ease;
+        }
+        
+        .nav-link:hover {
+            background: #edf2f7;
+            color: #3182ce;
+        }
+        
+        .nav-link.active {
+            background: #bee3f8;
+            color: #3182ce;
+            border-left-color: #3182ce;
+            font-weight: 600;
+        }
+        
+        .nav-number {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 1.5rem;
+            height: 1.5rem;
+            margin-right: 0.75rem;
+            font-size: 0.75rem;
+            font-weight: 600;
+            background: #e2e8f0;
+            color: #718096;
+            border-radius: 50%;
+        }
+        
+        .nav-link.active .nav-number {
+            background: #3182ce;
+            color: white;
+        }
+        
+        .sidebar-footer {
+            margin-top: auto;
+            padding: 1.5rem;
+            border-top: 1px solid #e2e8f0;
+            font-size: 0.75rem;
+            color: #718096;
+        }
+        
+        .sidebar-footer a {
+            color: #3182ce;
+            text-decoration: none;
+        }
+        
+        .main-content {
+            flex: 1;
+            margin-left: 0;
+            padding: 2rem;
+        }
+        
+        @media (min-width: 769px) {
+            .main-content {
+                margin-left: 280px;
+                padding: 3rem 2rem;
+            }
+        }
+        
+        .content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .mobile-toggle {
+            display: block;
+            position: fixed;
+            top: 1rem;
+            left: 1rem;
+            z-index: 1001;
+            background: #1a365d;
+            color: white;
+            border: none;
+            padding: 0.5rem;
+            border-radius: 0.375rem;
+            cursor: pointer;
+        }
+        
+        @media (min-width: 769px) {
+            .mobile-toggle {
+                display: none;
+            }
+        }
+        
+        .overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 999;
+        }
+        
+        .overlay.active {
+            display: block;
+        }
+        
+        h1, h2, h3 {
+            color: #1a365d;
+            margin: 2rem 0 1rem;
+        }
+        
+        h1 {
+            font-size: 2.25rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        h2 {
+            font-size: 1.875rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid #e2e8f0;
+        }
+        
+        h3 {
+            font-size: 1.5rem;
+        }
+        
+        p {
+            margin: 1rem 0;
+            line-height: 1.7;
+        }
+        
+        blockquote {
+            margin: 2rem 0;
+            padding: 1.5rem;
+            background: #f7fafc;
+            border-left: 4px solid #3182ce;
+            border-radius: 0 0.375rem 0.375rem 0;
+            font-style: italic;
+        }
+        
+        ul, ol {
+            margin: 1rem 0;
+            padding-left: 2rem;
+        }
+        
+        li {
+            margin: 0.5rem 0;
+        }
+        
+        a {
+            color: #3182ce;
+            text-decoration: none;
+        }
+        
+        a:hover {
+            text-decoration: underline;
+        }
+        
+        strong {
+            font-weight: 600;
+            color: #1a365d;
+        }
+        
+        .page-nav {
+            margin-top: 4rem;
+            padding-top: 2rem;
+            border-top: 1px solid #e2e8f0;
+            display: flex;
+            justify-content: space-between;
+            gap: 1rem;
+        }
+        
+        .nav-btn {
+            padding: 1rem 1.5rem;
+            background: #f7fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 0.5rem;
+            text-decoration: none;
+            color: #2d3748;
+            transition: all 0.2s ease;
+            flex: 1;
+            max-width: 45%;
+        }
+        
+        .nav-btn:hover {
+            background: #edf2f7;
+            border-color: #3182ce;
+            transform: translateY(-1px);
+        }
+        
+        .nav-btn-next {
+            text-align: right;
+        }
+        
+        .nav-direction {
+            font-size: 0.875rem;
+            color: #718096;
+            display: block;
+            margin-bottom: 0.25rem;
+        }
+        
+        .nav-title {
+            font-weight: 600;
+            color: #1a365d;
+        }
+        
+        @media (max-width: 768px) {
+            .page-nav {
+                flex-direction: column;
+            }
+            .nav-btn {
+                max-width: 100%;
+            }
+            .content {
+                margin-top: 3rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Mobile Toggle -->
+        <button class="mobile-toggle" onclick="toggleSidebar()">☰</button>
+        
+        <!-- Overlay -->
+        <div class="overlay" onclick="toggleSidebar()"></div>
+        
+        <!-- Sidebar -->
+        <nav class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <img src="logo.png" alt="Base A.I Logo" class="logo">
+                <p>Whitepaper</p>
+            </div>
+            
+            <ul class="nav-list">
+                <li class="nav-item">
+                    <a href="index.html" class="nav-link active">
+                        <span class="nav-number">1</span>
+                        <span>Introdução</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="contexto-de-mercado.html" class="nav-link">
+                        <span class="nav-number">2</span>
+                        <span>Contexto de Mercado</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="modelo-de-negocio.html" class="nav-link">
+                        <span class="nav-number">3</span>
+                        <span>Modelo de Negócio</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="infraestrutura.html" class="nav-link">
+                        <span class="nav-number">4</span>
+                        <span>Infraestrutura</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="estrutura-financeira.html" class="nav-link">
+                        <span class="nav-number">5</span>
+                        <span>Estrutura Financeira</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="processo-de-investimento.html" class="nav-link">
+                        <span class="nav-number">6</span>
+                        <span>Processo de Investimento</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="governanca.html" class="nav-link">
+                        <span class="nav-number">7</span>
+                        <span>Governança</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="consideracoes.html" class="nav-link">
+                        <span class="nav-number">8</span>
+                        <span>Considerações</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="anexos.html" class="nav-link">
+                        <span class="nav-number">9</span>
+                        <span>Anexos</span>
+                    </a>
+                </li>
+            </ul>
+            
+            <div class="sidebar-footer">
+                <p><strong>Contato:</strong></p>
+                <p><a href="mailto:contato@baseai.capital">contato@baseai.capital</a></p>
+                <p><a href="https://baseai.capital" target="_blank">baseai.capital</a></p>
+            </div>
+        </nav>
+        
+        <!-- Main Content -->
+        <main class="main-content">
+            <div class="content">
+                <h1>Introdução</h1>
+                
+                <blockquote>
+                    "Não apostamos em ideias. Investimos na infraestrutura que torna a IA possível: um mercado de trilhões em crescimento, onde a Base A.I atua como pioneira nacional em infraestrutura de IA como ativo real."
+                </blockquote>
+
+                <h2>Missão da Base A.I</h2>
+                <p>O poder computacional se tornou o ativo mais valioso do século XXI: o recurso que sustenta todas as inovações em Inteligência Artificial.</p>
+
+                <p>Nossa missão é <strong>democratizar o acesso financeiro à infraestrutura de IA</strong>, transformando servidores e GPUs de alto desempenho em <strong>ativos de investimento reais, rastreáveis e rentáveis</strong>.</p>
+
+                <p>A Base A.I estrutura <strong>estruturas privadas de participação em infraestrutura</strong> que permitem a qualquer investidor participar da economia global de IA através de <strong>data centers e clusters de GPUs com demanda contratada</strong>.</p>
+
+                <p>Oferecemos <strong>exposição direta à receita</strong> gerada por empresas que utilizam nossos recursos de computação, com <strong>transparência, governança e previsibilidade</strong>.</p>
+
+                <p>Nosso objetivo é ser a principal plataforma de <strong>financiamento e gestão de infraestrutura de IA</strong>, permitindo que cotistas privados se beneficiem do crescimento desse novo mercado de ativos físicos-digitais.</p>
+
+                <p>À medida que o setor evolui, expandiremos nossas soluções para incluir novas áreas de computação avançada, como <strong>computação de borda (edge computing)</strong>, que leva o processamento de dados para mais perto do usuário, reduzindo custos e tempo de resposta; <strong>computação quântica</strong>, próxima fronteira da performance em cálculos complexos; e <strong>inferência distribuída</strong>, que permite que múltiplas máquinas cooperem para executar modelos de IA de forma mais rápida e eficiente.</p>
+
+                <h2>Visão Geral da Solução</h2>
+                
+                <h3>Infraestrutura de IA como Ativo Real</h3>
+                <p><strong>Data Centers, GPUs e Revenue Share Mensal</strong></p>
+                
+                <p>A Base A.I conecta cotistas privados a <strong>infraestruturas reais de computação</strong>, como data centers de alto desempenho e GPUs corporativas (NVIDIA, AMD, Dell, Supermicro).</p>
+
+                <p>Cada rodada de captação é destinada à <strong>aquisição e operação de clusters</strong> que são alugados para empresas do setor de IA: desde startups de modelagem generativa até grandes grupos corporativos que demandam poder computacional em escala, como <strong>Amazon, Google, Microsoft, OpenAI, Anthropic, Meta, Stability AI, Hugging Face, NVIDIA Cloud, Oracle Cloud, Databricks e Snowflake</strong>.</p>
+
+                <p>Os cotistas privados recebem <strong>a participação proporcional na receita operacional gerada pelos ativos mensalmente</strong>, proporcional à sua participação no projeto.</p>
+
+                <p>Todo o processo é auditado, com <strong>painel de desempenho em tempo real</strong>, métricas de utilização, uptime e faturamento.</p>
+
+                <p>A estrutura é baseada em contratos privados no Brasil, garantindo <strong>conformidade legal</strong>, <strong>segurança jurídica</strong> e <strong>fluxo de receita previsível</strong>, sem emissão pública de valores mobiliários.</p>
+
+                <h2>Por que agora?</h2>
+
+                <p>O mercado global de infraestrutura de IA está em <strong>expansão explosiva</strong> — segundo a IDC e a Forbes, o setor ultrapassará <strong>US$ 100 bilhões até 2028</strong>, impulsionado pela corrida por GPUs de alto desempenho e pela escassez global de capacidade computacional.</p>
+
+                <p>Esse crescimento é visível em todo o mundo:</p>
+                <ul>
+                    <li>A <strong>OpenAI</strong> anunciou planos para construir um <strong>megadata center de US$ 25 bilhões na Patagônia (Argentina)</strong>, em parceria com a Sur Energy, com capacidade prevista de até 500 MW.</li>
+                    <li>A <strong>Meta Platforms</strong> anunciou um investimento de <strong>US$ 50 bilhões</strong> em um complexo de data centers do <strong>tamanho de Manhattan</strong> na Louisiana, voltado exclusivamente à IA generativa.</li>
+                    <li>A <strong>China</strong> está construindo <strong>data centers submersos</strong> para resfriamento natural e redução de consumo energético.</li>
+                </ul>
+
+                <p>Empresas de todos os tamanhos competem por recursos de computação, criando uma oportunidade única para cotistas privados participarem da <strong>espinha dorsal da revolução da Inteligência Artificial</strong>: a infraestrutura física que torna tudo possível.</p>
+
+                <p>A Base A.I capturou esse momento histórico: <strong>a transição da IA como software para a IA como infraestrutura</strong>.</p>
+
+                <h2>Junte-se à Comunidade Base A.I</h2>
+                <p>Saiba mais sobre a Base A.I e nossos projetos de infraestrutura acessando:</p>
+                <p>🌐 <strong>Site oficial:</strong> <a href="https://baseai.capital">https://baseai.capital</a></p>
+                <p>📩 <strong>Contato:</strong> contato@baseai.capital</p>
+
+                <!-- Navigation -->
+                <div class="page-nav">
+                    <div></div>
+                    <a href="contexto-de-mercado.html" class="nav-btn nav-btn-next">
+                        <span class="nav-direction">Próximo →</span>
+                        <span class="nav-title">Contexto de Mercado</span>
+                    </a>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            const overlay = document.querySelector('.overlay');
+            
+            sidebar.classList.toggle('active');
+            overlay.classList.toggle('active');
+        }
+
+        // Close sidebar when clicking on nav links (mobile)
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', () => {
+                if (window.innerWidth <= 768) {
+                    toggleSidebar();
+                }
+            });
+        });
+    </script>
+</body>
+</html>
