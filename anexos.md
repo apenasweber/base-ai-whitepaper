@@ -1,3 +1,9 @@
+---
+layout: default
+title: Anexos
+nav_order: 9
+---
+
 # Anexos
 
 ## Fontes, Glossário e Disclaimers

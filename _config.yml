@@ -1,0 +1,78 @@
+# Site settings
+title: "Base A.I - Whitepaper"
+description: "Infraestrutura de IA como Ativo Real - Democratizando o acesso financeiro à infraestrutura de Inteligência Artificial"
+baseurl: ""
+url: "https://andersonweber.github.io"
+
+# Build settings
+markdown: kramdown
+highlighter: rouge
+theme: minima
+plugins:
+  - jekyll-feed
+  - jekyll-sitemap
+  - jekyll-seo-tag
+
+# Exclude from processing
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - node_modules
+  - vendor/bundle/
+  - vendor/cache/
+  - vendor/gems/
+  - vendor/ruby/
+  - README.md
+
+# Collections
+collections:
+  pages:
+    output: true
+    permalink: /:name/
+
+# Defaults
+defaults:
+  - scope:
+      path: ""
+      type: "pages"
+    values:
+      layout: "default"
+  - scope:
+      path: ""
+    values:
+      layout: "default"
+
+# Navigation
+navigation:
+  - title: "Introdução"
+    url: "/"
+    order: 1
+  - title: "Contexto de Mercado"
+    url: "/contexto-de-mercado/"
+    order: 2
+  - title: "Modelo de Negócio"
+    url: "/modelo-de-negocio/"
+    order: 3
+  - title: "Infraestrutura"
+    url: "/infraestrutura/"
+    order: 4
+  - title: "Estrutura Financeira"
+    url: "/estrutura-financeira/"
+    order: 5
+  - title: "Processo de Investimento"
+    url: "/processo-de-investimento/"
+    order: 6
+  - title: "Governança"
+    url: "/governanca/"
+    order: 7
+  - title: "Considerações"
+    url: "/consideracoes/"
+    order: 8
+  - title: "Anexos"
+    url: "/anexos/"
+    order: 9
+
+# Site metadata
+author: "Base A.I"
+email: "contato@baseai.com.br"
+company: "Base A.I"

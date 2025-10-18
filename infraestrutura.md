@@ -1,10 +1,10 @@
 ---
 layout: default
-title: Governança e Transparência
-nav_order: 7
+title: Infraestrutura
+nav_order: 4
 ---
 
-# Governança e Transparência
+# Infraestrutura
 
 ## Estrutura Baseada em Transparência e Responsabilidade
 

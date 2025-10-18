@@ -1,3 +1,9 @@
+---
+layout: default
+title: Processo de Investimento
+nav_order: 6
+---
+
 # Processo de Aporte Privado em Infraestrutura de IA
 ## Jornada de Participação na Base A.I
 

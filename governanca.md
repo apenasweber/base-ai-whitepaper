@@ -1,3 +1,9 @@
+---
+layout: default
+title: Governança
+nav_order: 7
+---
+
 # Governança e Transparência
 
 ## Padrões Institucionais de Excelência

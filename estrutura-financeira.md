@@ -1,3 +1,9 @@
+---
+layout: default
+title: Estrutura Financeira
+nav_order: 5
+---
+
 # Estrutura Financeira
 
 ## Modelo de Receita Operacional e Distribuição Transparente

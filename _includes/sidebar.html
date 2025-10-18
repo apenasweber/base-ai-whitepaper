@@ -1,0 +1,37 @@
+<nav class="sidebar">
+  <div class="sidebar-header">
+    <h2><a href="{{ '/' | relative_url }}">Base A.I</a></h2>
+    <p class="sidebar-subtitle">Whitepaper</p>
+  </div>
+  
+  <ul class="sidebar-nav">
+    {% assign sorted_nav = site.navigation | sort: 'order' %}
+    {% for item in sorted_nav %}
+      <li class="nav-item">
+        <a href="{{ item.url | relative_url }}" 
+           class="nav-link {% if page.url == item.url %}active{% endif %}">
+          <span class="nav-number">{{ item.order }}</span>
+          <span class="nav-title">{{ item.title }}</span>
+        </a>
+      </li>
+    {% endfor %}
+  </ul>
+  
+  <div class="sidebar-footer">
+    <div class="contact-info">
+      <p><strong>Contato:</strong></p>
+      <p><a href="mailto:contato@baseai.com.br">contato@baseai.com.br</a></p>
+      <p><a href="https://baseai.capital" target="_blank">baseai.capital</a></p>
+    </div>
+  </div>
+</nav>
+
+<!-- Mobile menu toggle -->
+<button class="mobile-menu-toggle" id="mobile-menu-toggle">
+  <span></span>
+  <span></span>
+  <span></span>
+</button>
+
+<!-- Overlay for mobile -->
+<div class="sidebar-overlay" id="sidebar-overlay"></div>

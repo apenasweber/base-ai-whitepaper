@@ -1,3 +1,9 @@
+---
+layout: default
+title: Introdução
+nav_order: 1
+---
+
 # Introdução
 > “Não apostamos em ideias. Investimos na infraestrutura que torna a IA possível: um mercado de trilhões em crescimento, onde a Base A.I atua como pioneira nacional em infraestrutura de IA como ativo real.”
 

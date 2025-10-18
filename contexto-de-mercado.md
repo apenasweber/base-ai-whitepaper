@@ -1,3 +1,9 @@
+---
+layout: default
+title: Contexto de Mercado
+nav_order: 2
+---
+
 # Contexto de Mercado
 
 ## A Era da Inteligência Artificial Exige Poder Computacional Real

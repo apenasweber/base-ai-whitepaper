@@ -1,3 +1,9 @@
+---
+layout: default
+title: Considerações
+nav_order: 8
+---
+
 # Considerações Importantes
 
 ## Visão Geral
