@@ -1,9 +1,3 @@
----
-layout: default
-title: Governança e Transparência
-nav_order: 5
----
-
 # Governança e Transparência
 
 ## Padrões Institucionais de Excelência

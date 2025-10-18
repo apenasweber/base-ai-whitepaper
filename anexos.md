@@ -1,9 +1,3 @@
----
-layout: default
-title: Anexos
-nav_order: 9
----
-
 # Anexos
 
 ## Fontes, Glossário e Disclaimers
@@ -59,7 +53,6 @@ Esta seção consolida as referências técnicas, definições e informações c
 - [Link: goldmansachs.com/research/ai-infrastructure](https://goldmansachs.com/research/ai-infrastructure)
 
 ### Dados de Mercado
-
 **NVIDIA Corporation**
 - *Data Center Revenue Reports Q1-Q4 2024*
 - Crescimento de 427% em receita de data center
@@ -73,9 +66,7 @@ Esta seção consolida as referências técnicas, definições e informações c
 - [Link: amd.com/investors](https://amd.com/investors)
 
 ## Glossário Técnico
-
 ### Infraestrutura de IA
-
 **GPU (Graphics Processing Unit)**
 - Unidade de processamento gráfico especializada
 - Otimizada para computação paralela massiva
@@ -101,7 +92,6 @@ Esta seção consolida as referências técnicas, definições e informações c
 - Exemplos: Equinix, Digital Realty
 
 ### Tecnologias Específicas
-
 **Colocation**
 - Hospedagem de equipamentos próprios
 - Em data centers de terceiros
@@ -127,7 +117,6 @@ Esta seção consolida as referências técnicas, definições e informações c
 - Até 10x mais rápido que cores tradicionais
 
 ### Métricas de Performance
-
 **FLOPS (Floating Point Operations Per Second)**
 - Medida de performance computacional
 - Expressa em TFLOPS (trilhões por segundo)
@@ -153,7 +142,6 @@ Esta seção consolida as referências técnicas, definições e informações c
 - Essencial em contratos de colocation
 
 ### Modelos de Negócio
-
 **Revenue Share**
 - Compartilhamento de receita
 - Modelo usado pela Base A.I
@@ -178,86 +166,72 @@ Esta seção consolida as referências técnicas, definições e informações c
 - Calculado anualmente
 - Base para comparação com alternativas
 
-## Regulamentação Aplicável
+## Conformidade e Estrutura Regulatória
 
-### Brasil
+A Base A.I opera como uma **empresa privada de infraestrutura tecnológica e gestão de ativos reais (data centers e GPUs)**.  
+Nossa estrutura segue **as melhores práticas de transparência, segurança e governança corporativa**, mas **não configura oferta pública de valores mobiliários**, estando **fora do escopo da CVM (Comissão de Valores Mobiliários)**.
 
-**CVM - Comissão de Valores Mobiliários**
-- Instrução 588/2017: Fundos de Investimento
-- Instrução 539/2013: Investidor Qualificado
-- Resolução 21/2017: Compliance e Controles
-- Lei 6.385/1976: Mercado de Capitais
+Toda a captação é realizada de forma **privada, direcionada e contratual**, conforme previsto no Código Civil Brasileiro (artigos 991–996, Sociedade em Conta de Participação).  
+Cada investidor participa por meio de contrato privado, com análise individual de perfil e sem qualquer promessa de rentabilidade fixa.
 
-**BACEN - Banco Central do Brasil**
-- Resolução 4.658/2018: Prevenção à Lavagem
-- Circular 3.978/2020: Controles Internos
-- Lei 9.613/1998: Crimes Financeiros
-- Resolução 4.893/2021: Governança
+---
 
-**Receita Federal**
-- Lei 11.196/2005: Lei do Bem (Incentivos)
-- Decreto 9.580/2018: Regulamento do IR
-- IN 1.888/2019: Declaração de Capitais
-- Lei 12.973/2014: Tributação Internacional
+### Estrutura de Compliance e Governança
 
-### Internacional
+**Base Legal e Contratual**
+- Código Civil Brasileiro, arts. 991–996 — Sociedade em Conta de Participação (SCP)  
+- Lei 10.406/2002 — Obrigações contratuais e direitos societários  
+- Lei 12.846/2013 — Programa de Integridade e Anticorrupção  
+- Lei 9.613/1998 — Prevenção à Lavagem de Dinheiro  
 
-**Estados Unidos**
-- Securities Act 1933: Ofertas de Valores
-- Investment Company Act 1940: Fundos
-- Sarbanes-Oxley Act 2002: Governança
-- CFTC Regulations: Derivativos
+**Governança e Controles Internos**
+- Políticas de **KYC (Know Your Customer)** e **AML (Anti-Money Laundering)** em conformidade com padrões do Banco Central e OCDE  
+- **Auditoria independente anual** dos resultados e contratos  
+- **Relatórios de performance e operação** mensais com rastreabilidade financeira e técnica  
+- **Transparência total** via dashboard de uso, uptime e faturamento das GPUs  
 
-**União Europeia**
-- GDPR 2018: Proteção de Dados
-- MiFID II 2018: Mercados Financeiros
-- AIFMD 2011: Gestores de Fundos
-- Taxonomy Regulation 2020: ESG
+---
 
-## Certificações e Padrões
+### Segurança Operacional e Certificações
 
-### Segurança e Compliance
+A Base A.I prioriza a operação em **data centers certificados** e de classe internacional.
 
-**ISO 27001**
-- Gestão de Segurança da Informação
-- Padrão internacional reconhecido
-- Auditoria anual obrigatória
-- Requisito para data centers
+**Padrões de Segurança**
+- **ISO 27001** — Gestão de Segurança da Informação  
+- **SOC 2 Type II** — Controles de segurança e disponibilidade de serviços  
+- **PCI DSS** — Proteção de dados sensíveis e protocolos de pagamento  
+- **LEED Certification** — Eficiência energética e sustentabilidade  
 
-**SOC 2 Type II**
-- Service Organization Control
-- Auditoria de controles internos
-- Foco em segurança e disponibilidade
-- Padrão americano amplamente aceito
+**Infraestrutura de Data Center**
+- **Tier III / Tier IV (Uptime Institute)** — 99.982% a 99.995% de disponibilidade  
+- **Redundância energética e de rede**, com monitoramento 24/7  
+- **Contratos de colocation com provedores globais** (Equinix, Scala, Odata, etc.)  
 
-**PCI DSS**
-- Payment Card Industry Data Security
-- Proteção de dados de cartão
-- Relevante para processamento de pagamentos
-- Certificação anual necessária
+---
 
-### Data Centers
+### Declaração de Escopo Regulatória
 
-**Tier III/IV (Uptime Institute)**
-- Classificação de disponibilidade
-- Tier III: 99.982% uptime
-- Tier IV: 99.995% uptime
-- Padrão global para data centers
+> **Aviso Legal:**  
+> A Base A.I realiza captações **privadas**, destinadas a investidores qualificados e estratégicos.  
+> Este material tem caráter **informativo e institucional**, e **não constitui oferta pública de valores mobiliários** conforme a Lei 6.385/76, a Resolução CVM 160/22 ou regulamentos equivalentes.  
+> Os investimentos são estruturados em contratos privados de participação em receita, com base em ativos físicos reais (GPUs e data centers).
 
-**LEED Certification**
-- Leadership in Energy and Environmental Design
-- Sustentabilidade em construções
-- Redução de impacto ambiental
-- Valorização do ativo imobiliário
+---
+
+### Conformidade Internacional
+
+Para investidores estrangeiros ou operações fora do Brasil, a Base A.I observa normas de **boas práticas de governança global**:
+- **GDPR (UE)** — Proteção de dados pessoais  
+- **ISO/IEC 27018** — Privacidade em nuvem  
+- **OECD Guidelines** — Prevenção à lavagem e governança corporativa  
+
+Esses padrões asseguram a operação internacional com **segurança jurídica, técnica e ética**, mantendo o foco em transparência e estabilidade operacional.
+
 
 ## Contatos e Suporte
-
 ### Equipe Base A.I
-
 **Relacionamento com Investidores**
-- Email: investors@baseai.com.br
-- Telefone: +55 11 3000-0000
-- WhatsApp: +55 11 99999-0000
+- Email: investidores@baseai.capital
 - Horário: Segunda a sexta, 9h às 18h
 
 **Suporte Técnico**
@@ -274,23 +248,25 @@ Esta seção consolida as referências técnicas, definições e informações c
 
 ### Parceiros Estratégicos
 
-**Auditoria Externa**
-- Ernst & Young Brasil
-- Sócio responsável: [Nome]
-- Email: baseai@br.ey.com
-- Telefone: +55 11 2573-3000
+A Base A.I mantém parceria com **profissionais e instituições independentes** para garantir governança, conformidade e transparência em todas as operações.
 
-**Consultoria Jurídica**
-- Pinheiro Neto Advogados
-- Sócio responsável: [Nome]
-- Email: baseai@pn.com.br
-- Telefone: +55 11 3247-8400
+**Auditoria Independente**  
+- Empresa especializada em auditoria financeira e verificação de ativos de infraestrutura  
+- Responsável por validar os relatórios de performance e distribuição de receita  
+- Revisões periódicas de contratos e resultados operacionais  
 
-**Custódia de Ativos**
-- Itaú Unibanco S.A.
-- Gerente responsável: [Nome]
-- Email: custody@itau.com.br
-- Telefone: +55 11 5019-8000
+**Consultoria Jurídica Especializada**  
+- Escritório com foco em direito empresarial e compliance regulatório  
+- Responsável pela estruturação contratual e adequação às normas brasileiras e internacionais  
+- Apoio na elaboração de contratos de investimento privado e políticas de governança  
+
+**Custódia e Compliance Operacional**  
+- Instituição financeira parceira para gestão e custódia dos recursos captados  
+- Controle de fluxo financeiro, reconciliação bancária e relatórios de transparência  
+- Processos internos baseados em políticas de KYC (Know Your Customer) e AML (Anti-Money Laundering)
+
+Essas parcerias asseguram que a Base A.I opere com **padrões institucionais de auditoria, governança e segurança**, mesmo em um modelo de **captação privada e investimento em ativos reais**.
+
 
 ## Disclaimer Final
 

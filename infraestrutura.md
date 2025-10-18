@@ -1,229 +1,150 @@
 ---
 layout: default
-title: Infraestrutura e Tecnologia
-nav_order: 4
+title: Governança e Transparência
+nav_order: 7
 ---
 
-# Infraestrutura e Tecnologia
+# Governança e Transparência
 
-## Stack Tecnológico de Classe Mundial
+## Estrutura Baseada em Transparência e Responsabilidade
 
-A **Base A.I** trabalha exclusivamente com os principais modelos de GPUs do mercado, selecionados conforme demanda específica e perfil de cada captação. Nossa infraestrutura é projetada para máxima performance, confiabilidade e eficiência operacional.
-
-## Portfolio de GPUs
-
-### NVIDIA - Líder de Mercado
-
-**H100 Tensor Core**
-- **Arquitetura**: Hopper, 4nm TSMC
-- **Memória**: 80GB HBM3, 3TB/s bandwidth
-- **Performance**: 1,000 TOPS (INT8), 60 TFLOPS (FP32)
-- **Uso Ideal**: Large Language Models, AI Training
-- **Preço Médio**: US$ 25,000 - 40,000
-
-**A100 Tensor Core**
-- **Arquitetura**: Ampere, 7nm TSMC  
-- **Memória**: 40GB/80GB HBM2e, 1.6TB/s bandwidth
-- **Performance**: 624 TOPS (INT8), 19.5 TFLOPS (FP32)
-- **Uso Ideal**: AI Training e Inference balanceados
-- **Preço Médio**: US$ 15,000 - 25,000
-
-**L40S**
-- **Arquitetura**: Ada Lovelace, 4nm TSMC
-- **Memória**: 48GB GDDR6, 864 GB/s bandwidth
-- **Performance**: 362 TOPS (INT8), 91.6 TFLOPS (FP32)
-- **Uso Ideal**: AI Inference, Computer Vision
-- **Preço Médio**: US$ 8,000 - 12,000
-
-### AMD - Alternativa Competitiva
-
-**MI300X**
-- **Arquitetura**: CDNA 3, 5nm TSMC
-- **Memória**: 192GB HBM3, 5.3TB/s bandwidth
-- **Performance**: 1,300 TOPS (INT8), 61.3 TFLOPS (FP32)
-- **Uso Ideal**: Large Model Training, HPC
-- **Preço Médio**: US$ 20,000 - 30,000
-
-### Google Cloud TPU
-
-**TPU v5e**
-- **Arquitetura**: Proprietária Google
-- **Memória**: 16GB HBM, 1.6TB/s bandwidth
-- **Performance**: 197 TFLOPS (BF16)
-- **Uso Ideal**: TensorFlow, JAX workloads
-- **Modelo**: Lease/Partnership apenas
-
-## Infraestrutura de Data Center
-
-### Servidores Enterprise
-
-**Dell PowerEdge XE9680**
-- **CPUs**: Dual Intel Xeon Scalable
-- **GPUs**: Até 8x H100 ou A100
-- **Memória**: Até 2TB DDR5
-- **Storage**: NVMe SSD, até 30TB
-- **Rede**: InfiniBand HDR, 200Gb/s
-
-**Supermicro SYS-821GE-TNHR**
-- **CPUs**: Dual AMD EPYC 9004
-- **GPUs**: Até 8x MI300X
-- **Memória**: Até 3TB DDR5
-- **Storage**: NVMe SSD, até 60TB
-- **Rede**: Ethernet 400GbE
-
-### Especificações Técnicas
-
-**Refrigeração**
-- Liquid cooling para GPUs de alta densidade
-- Redundância N+1 em todos os sistemas
-- Monitoramento térmico em tempo real
-- Eficiência PUE < 1.3
-
-**Energia**
-- Alimentação redundante 2N
-- UPS com autonomia de 15 minutos
-- Geradores diesel para backup estendido
-- Monitoramento de qualidade de energia
-
-**Conectividade**
-- InfiniBand para comunicação GPU-GPU
-- Ethernet 25/100GbE para acesso externo
-- Latência < 1ms intra-cluster
-- Bandwidth agregado > 1TB/s
-
-## Parceiros de Data Center
-
-### Equinix - Líder Global
-
-**Características**
-- 260+ data centers em 70+ países
-- Certificações: SOC 2, ISO 27001, PCI DSS
-- SLA: 99.999% uptime garantido
-- Conectividade: 10,000+ redes conectadas
-
-**Localizações Estratégicas**
-- **São Paulo**: SP4, SP5 (baixa latência Brasil)
-- **Rio de Janeiro**: RJ2 (redundância geográfica)
-- **Miami**: MI1 (gateway América Latina)
-- **Ashburn**: DC2, DC6 (hub global)
-
-### Scala Data Centers
-
-**Características**
-- Líder no mercado brasileiro
-- 18 data centers no Brasil
-- Certificações: Tier III, ISO 27001
-- SLA: 99.982% uptime garantido
-
-**Vantagens Locais**
-- Suporte 24/7 em português
-- Compliance com LGPD
-- Preços competitivos em Real
-- Proximidade com clientes brasileiros
-
-## Monitoramento e Observabilidade
-
-### Métricas em Tempo Real
-
-**Performance das GPUs**
-- Utilização de compute (%)
-- Temperatura e throttling
-- Memória utilizada/disponível
-- Throughput de dados
-
-**Infraestrutura**
-- Uptime e disponibilidade
-- Consumo energético
-- Status de refrigeração
-- Conectividade de rede
-
-**Financeiro**
-- Receita por GPU/hora
-- Margem de contribuição
-- Utilização vs. capacidade
-- Projeções de receita
-
-### Dashboard Público
-
-**Métricas Agregadas**
-- Total de GPUs operacionais
-- Utilização média do cluster
-- Receita mensal acumulada
-- Performance vs. benchmark
-
-**Transparência Operacional**
-- Incidentes e manutenções
-- Atualizações de software
-- Novos contratos firmados
-- Expansão de capacidade
-
-## Casos de Uso Especializados
-
-### AI Training
-
-**Large Language Models**
-- GPT, BERT, T5 training
-- Distributed training multi-GPU
-- Gradient synchronization
-- Checkpointing automático
-
-**Computer Vision**
-- Object detection e segmentation
-- Image classification
-- Video analysis
-- Medical imaging
-
-### AI Inference
-
-**Real-time APIs**
-- Latência < 100ms
-- Auto-scaling baseado em demanda
-- Load balancing inteligente
-- Caching de resultados
-
-**Batch Processing**
-- Processamento de grandes datasets
-- ETL para machine learning
-- Feature engineering
-- Model evaluation
-
-### Pesquisa e Desenvolvimento
-
-**Academic Research**
-- Acesso flexível por projeto
-- Recursos compartilhados
-- Colaboração multi-institucional
-- Publicação de resultados
-
-**Prototyping**
-- Ambiente de desenvolvimento
-- Ferramentas de debugging
-- Version control integrado
-- Deployment automatizado
-
-## Roadmap Tecnológico
-
-### Próximos 12 Meses
-
-- **Q1 2025**: Integração com NVIDIA H200
-- **Q2 2025**: Suporte a AMD MI350X
-- **Q3 2025**: Edge computing nodes
-- **Q4 2025**: Quantum-classical hybrid
-
-### Inovações Futuras
-
-**Quantum Computing**
-- Parcerias com IBM, Google
-- Algoritmos híbridos
-- Otimização combinatorial
-- Simulação molecular
-
-**Edge AI**
-- Processamento local
-- Latência ultra-baixa
-- IoT integration
-- 5G connectivity
+A **Base A.I** opera com base em uma estrutura de governança moderna, simples e transparente, alinhada às melhores práticas internacionais de empresas de tecnologia e infraestrutura.  
+Nosso modelo foi desenhado para garantir **clareza nas decisões, rastreabilidade das operações e confiança dos parceiros**.
 
 ---
 
-*Nossa infraestrutura é constantemente atualizada para manter liderança tecnológica e maximizar retornos dos investidores.*
+## Estrutura de Liderança
+
+### Direção Executiva
+
+**CEO / Fundador — Anderson Weber**  
+Responsável pela estratégia corporativa, relacionamento com parceiros e expansão internacional. Atua também na gestão operacional e comercial dos projetos de infraestrutura.
+
+**CTO / Cofundador — [Nome do Sócio]**  
+Responsável pela arquitetura técnica dos clusters, integração com data centers parceiros e supervisão das métricas de performance e eficiência computacional.
+
+Essa estrutura enxuta e direta garante **agilidade nas decisões e execução eficiente**, com apoio de **consultores externos especializados** em auditoria, governança e jurídico contratual.
+
+---
+
+## Consultoria e Auditoria Independente
+
+A Base A.I mantém parcerias com **auditores independentes e consultores de compliance contratual**, que atuam de forma terceirizada em revisões anuais de documentação e relatórios de desempenho.
+
+- **Auditoria técnica de infraestrutura:** realizada por empresas independentes do setor de data centers.  
+- **Auditoria financeira:** validação de resultados operacionais e distribuição de receitas.  
+- **Compliance contratual:** revisão de cláusulas e boas práticas conforme o Código Civil Brasileiro (arts. 991 a 996 – SCP).
+
+Essas práticas asseguram **transparência e segurança jurídica**, sem necessidade de enquadramento como fundo de investimento ou supervisão da CVM.
+
+---
+
+## Transparência Operacional
+
+### Dashboard de Performance
+
+A Base A.I disponibiliza um **painel de acompanhamento em tempo real** (baseai.com.br/metrics) com informações públicas e privadas:
+
+**Métricas Públicas**
+- GPUs operacionais e modelos ativos (H100, MI300X, A100, etc.)  
+- Utilização média dos clusters  
+- Uptime dos data centers (> 99,9% em média global — *Uptime Institute 2024*)  
+- Volume mensal de horas computacionais processadas  
+
+**Métricas Privadas (acesso restrito a parceiros)**
+- Receita operacional consolidada  
+- Custo médio de energia por GPU (kWh)  
+- Taxa de utilização por projeto  
+- Relatórios de eficiência e margem operacional média  
+
+📊 *Referências: Uptime Institute 2024, McKinsey AI Infrastructure Report 2025, NVIDIA Investor Relations 2025*
+
+---
+
+## Governança Corporativa e Controles
+
+### Pilares de Gestão
+
+- **Transparência:** relatórios mensais com desempenho e uso de recursos  
+- **Rastreabilidade:** registro digital de contratos e auditorias  
+- **Accountability:** revisão periódica de decisões estratégicas  
+- **Segurança:** políticas de KYC (Know Your Customer) e AML (Anti-Money Laundering)  
+
+A Base A.I adota ferramentas de controle integradas (ERP financeiro + painel operacional) para monitorar custos, faturamento e desempenho em tempo real.
+
+---
+
+## Gestão de Riscos e Eficiência
+
+### Riscos Operacionais e Comerciais
+
+Os principais fatores de atenção incluem:
+- Obsolescência tecnológica  
+- Custos de energia e refrigeração  
+- Disponibilidade de GPUs no mercado  
+- Concentração de clientes em grandes contratos  
+
+**Medidas de Mitigação**
+- Contratos de fornecimento com múltiplos fabricantes (NVIDIA, AMD, Intel)  
+- Programa de atualização escalonado de hardware  
+- Seguro de equipamentos e proteção cibernética  
+- Diversificação de clientes e workloads  
+
+🔹 *Segundo a Oracle (2025), margens médias em infraestrutura AI Cloud variam entre 30 % e 40 %*  
+🔹 *A CoreWeave reporta taxas de utilização de 35 %–45 % em clusters GPU em larga escala*  
+🔹 *A NVIDIA mantém ~80 % do market share global de GPUs para IA — Investing.com (2025)*  
+
+Esses dados demonstram que o setor apresenta **alto potencial operacional**, ainda com espaço para otimização e ganhos de eficiência.
+
+---
+
+## Critérios ESG
+
+A Base A.I segue diretrizes ambientais, sociais e de governança (ESG) compatíveis com padrões internacionais do setor de tecnologia:
+
+### Ambiental
+- Parcerias com data centers que operam com **PUE médio < 1,4** (*Uptime Institute 2024*)  
+- Contratos preferenciais com fornecedores de **energia renovável**  
+- Reciclagem e revenda de hardware descomissionado  
+
+### Social
+- Apoio a **pesquisas acadêmicas e startups de IA**  
+- Programas de **educação e treinamento técnico local**  
+- Inclusão e diversidade no recrutamento  
+
+### Governança
+- **Auditoria independente anual**  
+- **Relatórios públicos de performance**  
+- **Políticas claras de transparência e anticorrupção**
+
+---
+
+## Seleção e Parceria com Fornecedores
+
+**Data Centers**
+- Certificação Tier III ou superior  
+- SLA mínimo de 99,9 % de disponibilidade  
+- Redundância de energia e conectividade  
+
+**Fabricantes de GPU**
+- Suporte técnico 24/7 e garantia mínima de 3 anos  
+- Histórico comprovado de performance industrial  
+- Alinhamento a padrões de sustentabilidade e eficiência  
+
+**Critérios Comerciais**
+- Preços competitivos e contratos de longo prazo  
+- Penalidades por falhas de SLA  
+- Flexibilidade para upgrades e expansão  
+
+---
+
+## Transparência e Comunicação
+
+Cada parceiro da Base A.I tem acesso a relatórios mensais de performance e a documentos auditáveis via painel privado.  
+As decisões estratégicas são comunicadas com clareza e documentadas digitalmente.
+
+📩 **Contato oficial:** contato@baseai.com.br  
+
+---
+
+*A governança é o alicerce da confiança — e na Base A.I, confiança se constrói com dados, transparência e tecnologia.*  
