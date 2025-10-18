@@ -6,9 +6,6 @@
   <title>{% if page.title %}{{ page.title }} - {% endif %}{{ site.title }}</title>
   <meta name="description" content="{% if page.description %}{{ page.description }}{% else %}{{ site.description }}{% endif %}">
   
-  <!-- SEO -->
-  {% seo %}
-  
   <!-- Styles -->
   <link rel="stylesheet" href="{{ '/assets/css/style.css' | relative_url }}">
   
@@ -41,31 +38,79 @@
         
         <!-- Navigation -->
         <nav class="page-navigation">
-          {% assign sorted_nav = site.navigation | sort: 'order' %}
-          {% assign current_index = 0 %}
-          {% for item in sorted_nav %}
-            {% if page.url == item.url %}
-              {% assign current_index = forloop.index0 %}
-              {% break %}
-            {% endif %}
-          {% endfor %}
-          
           <div class="nav-buttons">
-            {% if current_index > 0 %}
-              {% assign prev_item = sorted_nav[current_index] | minus: 1 %}
-              {% assign prev_page = sorted_nav[current_index - 1] %}
-              <a href="{{ prev_page.url | relative_url }}" class="nav-button nav-prev">
-                <span class="nav-direction">← Anterior</span>
-                <span class="nav-page-title">{{ prev_page.title }}</span>
-              </a>
-            {% endif %}
-            
-            {% assign next_index = current_index | plus: 1 %}
-            {% if next_index < sorted_nav.size %}
-              {% assign next_page = sorted_nav[next_index] %}
-              <a href="{{ next_page.url | relative_url }}" class="nav-button nav-next">
+            {% if page.url == '/' %}
+              <a href="{{ '/contexto-de-mercado.html' | relative_url }}" class="nav-button nav-next">
                 <span class="nav-direction">Próximo →</span>
-                <span class="nav-page-title">{{ next_page.title }}</span>
+                <span class="nav-page-title">Contexto de Mercado</span>
+              </a>
+            {% elsif page.url contains 'contexto-de-mercado' %}
+              <a href="{{ '/' | relative_url }}" class="nav-button nav-prev">
+                <span class="nav-direction">← Anterior</span>
+                <span class="nav-page-title">Introdução</span>
+              </a>
+              <a href="{{ '/modelo-de-negocio.html' | relative_url }}" class="nav-button nav-next">
+                <span class="nav-direction">Próximo →</span>
+                <span class="nav-page-title">Modelo de Negócio</span>
+              </a>
+            {% elsif page.url contains 'modelo-de-negocio' %}
+              <a href="{{ '/contexto-de-mercado.html' | relative_url }}" class="nav-button nav-prev">
+                <span class="nav-direction">← Anterior</span>
+                <span class="nav-page-title">Contexto de Mercado</span>
+              </a>
+              <a href="{{ '/infraestrutura.html' | relative_url }}" class="nav-button nav-next">
+                <span class="nav-direction">Próximo →</span>
+                <span class="nav-page-title">Infraestrutura</span>
+              </a>
+            {% elsif page.url contains 'infraestrutura' %}
+              <a href="{{ '/modelo-de-negocio.html' | relative_url }}" class="nav-button nav-prev">
+                <span class="nav-direction">← Anterior</span>
+                <span class="nav-page-title">Modelo de Negócio</span>
+              </a>
+              <a href="{{ '/estrutura-financeira.html' | relative_url }}" class="nav-button nav-next">
+                <span class="nav-direction">Próximo →</span>
+                <span class="nav-page-title">Estrutura Financeira</span>
+              </a>
+            {% elsif page.url contains 'estrutura-financeira' %}
+              <a href="{{ '/infraestrutura.html' | relative_url }}" class="nav-button nav-prev">
+                <span class="nav-direction">← Anterior</span>
+                <span class="nav-page-title">Infraestrutura</span>
+              </a>
+              <a href="{{ '/processo-de-investimento.html' | relative_url }}" class="nav-button nav-next">
+                <span class="nav-direction">Próximo →</span>
+                <span class="nav-page-title">Processo de Investimento</span>
+              </a>
+            {% elsif page.url contains 'processo-de-investimento' %}
+              <a href="{{ '/estrutura-financeira.html' | relative_url }}" class="nav-button nav-prev">
+                <span class="nav-direction">← Anterior</span>
+                <span class="nav-page-title">Estrutura Financeira</span>
+              </a>
+              <a href="{{ '/governanca.html' | relative_url }}" class="nav-button nav-next">
+                <span class="nav-direction">Próximo →</span>
+                <span class="nav-page-title">Governança</span>
+              </a>
+            {% elsif page.url contains 'governanca' %}
+              <a href="{{ '/processo-de-investimento.html' | relative_url }}" class="nav-button nav-prev">
+                <span class="nav-direction">← Anterior</span>
+                <span class="nav-page-title">Processo de Investimento</span>
+              </a>
+              <a href="{{ '/consideracoes.html' | relative_url }}" class="nav-button nav-next">
+                <span class="nav-direction">Próximo →</span>
+                <span class="nav-page-title">Considerações</span>
+              </a>
+            {% elsif page.url contains 'consideracoes' %}
+              <a href="{{ '/governanca.html' | relative_url }}" class="nav-button nav-prev">
+                <span class="nav-direction">← Anterior</span>
+                <span class="nav-page-title">Governança</span>
+              </a>
+              <a href="{{ '/anexos.html' | relative_url }}" class="nav-button nav-next">
+                <span class="nav-direction">Próximo →</span>
+                <span class="nav-page-title">Anexos</span>
+              </a>
+            {% elsif page.url contains 'anexos' %}
+              <a href="{{ '/consideracoes.html' | relative_url }}" class="nav-button nav-prev">
+                <span class="nav-direction">← Anterior</span>
+                <span class="nav-page-title">Considerações</span>
               </a>
             {% endif %}
           </div>
