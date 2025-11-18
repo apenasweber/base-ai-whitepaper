@@ -53,7 +53,8 @@
             border-bottom: 1px solid #e2e8f0;
             margin-bottom: 1rem;
             text-align: center;
-        }
+        
+            padding-top: 0;}
         
         .logo {
             width: 120px;
@@ -132,8 +133,30 @@
         .sidebar-footer a {
             color: #3182ce;
             text-decoration: none;
+        }        
+        .language-selector {
+            padding: 1rem 1.5rem 0.5rem;
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            border-bottom: none;
         }
         
+        .lang-btn {
+            font-size: 1.5rem;
+            text-decoration: none;
+            opacity: 0.5;
+            transition: opacity 0.2s ease;
+            cursor: pointer;
+        }
+        
+        .lang-btn:hover {
+            opacity: 1;
+        }
+        
+        .lang-btn.active {
+            opacity: 1;
+        }
         .main-content {
             flex: 1;
             margin-left: 0;
@@ -310,6 +333,11 @@
         
         <!-- Sidebar -->
         <nav class="sidebar" id="sidebar">
+            <div class="language-selector">
+                <a href="anexos.html" class="lang-btn active" title="Português">🇧🇷</a>
+                <a href="anexos-en.html" class="lang-btn" title="English">🇺🇸</a>
+            </div>
+            
             <div class="sidebar-header">
                 <img src="logo.png" alt="Base A.I Logo" class="logo">
                 <p>Whitepaper</p>
@@ -368,6 +396,12 @@
                     <a href="anexos.html" class="nav-link active">
                         <span class="nav-number">9</span>
                         <span>Anexos</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="parceria-data-centers.html" class="nav-link ">
+                        <span class="nav-number">10</span>
+                        <span>Data Centers Parceiros</span>
                     </a>
                 </li>
             </ul>

@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Data Centers Parceiros - Base A.I</title>
+    <title>Governance - Base A.I</title>
     <style>
         * {
             margin: 0;
@@ -133,7 +133,8 @@
         .sidebar-footer a {
             color: #3182ce;
             text-decoration: none;
-        }        
+        }
+        
         .language-selector {
             padding: 1rem 1.5rem 0.5rem;
             display: flex;
@@ -157,6 +158,7 @@
         .lang-btn.active {
             opacity: 1;
         }
+        
         .main-content {
             flex: 1;
             margin-left: 0;
@@ -309,32 +311,6 @@
             font-weight: 600;
             color: #1a365d;
         }
-
-        hr {
-            margin: 2rem 0;
-            border: none;
-            border-top: 1px solid #e2e8f0;
-        }
-        
-        .typeform-link {
-            font-size: 1.25rem;
-            font-weight: 600;
-            color: #3182ce;
-            text-decoration: none;
-            padding: 1rem 2rem;
-            background: #f7fafc;
-            border: 2px solid #3182ce;
-            border-radius: 0.5rem;
-            display: inline-block;
-            transition: all 0.2s ease;
-        }
-        
-        .typeform-link:hover {
-            background: #3182ce;
-            color: white;
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(49, 130, 206, 0.3);
-        }
         
         @media (max-width: 768px) {
             .page-nav {
@@ -347,21 +323,31 @@
                 margin-top: 3rem;
             }
         }
+        
+        .coming-soon {
+            text-align: center;
+            padding: 4rem 2rem;
+            background: #f7fafc;
+            border-radius: 0.5rem;
+            margin: 2rem 0;
+        }
+        
+        .coming-soon h2 {
+            border: none;
+            margin-bottom: 1rem;
+        }
     </style>
 </head>
 <body>
     <div class="container">
-        <!-- Mobile Toggle -->
         <button class="mobile-toggle" onclick="toggleSidebar()">☰</button>
         
-        <!-- Overlay -->
         <div class="overlay" onclick="toggleSidebar()"></div>
         
-        <!-- Sidebar -->
         <nav class="sidebar" id="sidebar">
             <div class="language-selector">
-                <a href="parceria-data-centers.html" class="lang-btn active" title="Português">🇧🇷</a>
-                <a href="parceria-data-centers-en.html" class="lang-btn" title="English">🇺🇸</a>
+                <a href="governanca.html" class="lang-btn" title="Português">🇧🇷</a>
+                <a href="governanca-en.html" class="lang-btn active" title="English">🇺🇸</a>
             </div>
             
             <div class="sidebar-header">
@@ -371,163 +357,93 @@
             
             <ul class="nav-list">
                 <li class="nav-item">
-                    <a href="index.html" class="nav-link ">
+                    <a href="index-en.html" class="nav-link ">
                         <span class="nav-number">1</span>
-                        <span>Introdução</span>
+                        <span>Introduction</span>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="contexto-de-mercado.html" class="nav-link ">
+                    <a href="contexto-de-mercado-en.html" class="nav-link ">
                         <span class="nav-number">2</span>
-                        <span>Contexto de Mercado</span>
+                        <span>Market Context</span>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="modelo-de-negocio.html" class="nav-link ">
+                    <a href="modelo-de-negocio-en.html" class="nav-link ">
                         <span class="nav-number">3</span>
-                        <span>Modelo de Negócio</span>
+                        <span>Business Model</span>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="infraestrutura.html" class="nav-link ">
+                    <a href="infraestrutura-en.html" class="nav-link ">
                         <span class="nav-number">4</span>
-                        <span>Infraestrutura</span>
+                        <span>Infrastructure</span>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="estrutura-financeira.html" class="nav-link ">
+                    <a href="estrutura-financeira-en.html" class="nav-link ">
                         <span class="nav-number">5</span>
-                        <span>Estrutura Financeira</span>
+                        <span>Financial Structure</span>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="processo-de-investimento.html" class="nav-link ">
+                    <a href="processo-de-investimento-en.html" class="nav-link ">
                         <span class="nav-number">6</span>
-                        <span>Processo de Investimento</span>
+                        <span>Investment Process</span>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="governanca.html" class="nav-link ">
+                    <a href="governanca-en.html" class="nav-link active">
                         <span class="nav-number">7</span>
-                        <span>Governança</span>
+                        <span>Governance</span>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="consideracoes.html" class="nav-link ">
+                    <a href="consideracoes-en.html" class="nav-link ">
                         <span class="nav-number">8</span>
-                        <span>Considerações</span>
+                        <span>Considerations</span>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="anexos.html" class="nav-link ">
+                    <a href="anexos-en.html" class="nav-link ">
                         <span class="nav-number">9</span>
-                        <span>Anexos</span>
+                        <span>Attachments</span>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="parceria-data-centers.html" class="nav-link active">
+                    <a href="parceria-data-centers-en.html" class="nav-link ">
                         <span class="nav-number">10</span>
-                        <span>Data Centers Parceiros</span>
+                        <span>Partner Data Centers</span>
                     </a>
                 </li>
             </ul>
             
             <div class="sidebar-footer">
-                <p><strong>Contato:</strong></p>
+                <p><strong>Contact:</strong></p>
                 <p><a href="mailto:contato@baseai.capital">contato@baseai.capital</a></p>
                 <p><a href="https://baseai.capital" target="_blank">baseai.capital</a></p>
             </div>
         </nav>
         
-        <!-- Main Content -->
         <main class="main-content">
             <div class="content">
-                <h1>Parceria com Data Centers para Investimento em Infraestrutura e Alocação de GPUs</h1>
+                <h1>Governance</h1>
                 
-                <h2>Visão Geral</h2>
-                <p>
-                    Na Base AI Capital investimos em <strong>infraestrutura de data center</strong> e alocação de GPUs 
-                    para gerar receita compartilhada com parceiros operacionais. Nosso foco é construir ou expandir data centers, 
-                    instalar clusters de alta performance (GPUs) e firmar contratos de uso com empresas, provedores de nuvem ou centros de P&D.
-                </p>
-                
-                <h2>Como Funciona</h2>
-                <ol>
-                    <li>Identificamos ou abrimos parcerias com data centers que desejam expandir e/ou atualizar sua infraestrutura.</li>
-                    <li>Realizamos captações de diferentes tamanhos e com objetivos variados:
-                        <ul>
-                            <li>Investimento via GPUs em data centers existentes;</li>
-                            <li>Investimento em novos data centers para empresas que já possuem e querem expansão (novas filiais ou regiões).</li>
-                        </ul>
-                    </li>
-                    <li>Provemos os clusters de GPUs para implantação na infraestrutura do data center escolhido.</li>
-                    <li>Os ganhos oriundos da operação (uso das GPUs) são divididos entre o data center parceiro e a Base AI Capital, conforme acordo.</li>
-                    <li>Estabelecemos transparência, governança e relatórios de performance da infraestrutura para garantir alinhamento entre todas as partes.</li>
-                </ol>
+                <div class="coming-soon">
+                    <h2>🚧 Content Coming Soon</h2>
+                    <p>This page is currently being translated to English.</p>
+                    <p>Please visit the <a href="governanca.html">Portuguese version</a> for now.</p>
+                </div>
 
-                
-                
-
-
-                <h2>Oportunidade de Mercado</h2>
-                <p>
-                    O mercado global de GPUs para data centers está estimado em 
-                    <strong>US$ 119,97 bilhões em 2025</strong> e pode atingir cerca de 
-                    <strong>US$ 228,04 bilhões até 2030</strong>, com CAGR de aproximadamente 13,7%.
-                    Fonte: <a href="https://www.marketsandmarkets.com/Market-Reports/data-center-gpu-market-18997435.html" target="_blank">Markets and Markets</a>
-                </p>
-
-                <p>
-                    Outras estimativas apontam crescimento de cerca de 14% entre 2025 e 2030, alcançando 
-                    <strong>US$ 197,55 bilhões</strong>.  
-                    Fonte: <a href="https://deepmarketinsights.com/report/data-center-gpu-market-research-report" target="_blank">Deep Market Insights</a>
-                </p>
-
-                <p>
-                    Esses números demonstram o forte crescimento e a demanda elevada por capacidade de 
-                    computação de alta performance — cenário ideal para investimentos em data centers e alocação de GPUs.
-                </p>
-                
-
-                <h2>Benefícios para o Data Center Parceiro</h2>
-                <ul>
-                    <li>Monetização de infraestrutura ociosa ou subutilizada de forma recorrente.</li>
-                    <li>Participação em receita com modelo de <strong>revenue share</strong>, com divisão clara dos ganhos.</li>
-                    <li>Expansão ou atualização da infraestrutura sem necessidade de assumir todo o capital.</li>
-                    <li>Parceria com uma gestora especializada em IA e infraestrutura, que cuida de toda a alocação, contratos e operação das GPUs.</li>
-                </ul>
-                
-
-                <h2>Modelos de Captação e Escopo</h2>
-                <ul>
-                    <li>Investimentos de pequeno porte para entrada inicial com clusters de GPUs (GPU pod ou rack dedicado) em data center existente.</li>
-                    <li>Captações de médio ou grande porte para construção de nova região de data center.</li>
-                    <li>Expansão de capacidades para empresas que já possuem data center e querem adicionar infraestrutura de IA/ML.</li>
-                    <li>Modelos flexíveis: GPUs dedicadas (cliente único) ou pool compartilhado.</li>
-                </ul>
-
-                <hr>
-
-                <p><em>
-                    Este documento é parte integrante do Whitepaper Base AI Capital e serve como guia 
-                    para operadores de data centers e investidores interessados em alocação de GPUs e 
-                    expansão de infraestrutura.
-                </em></p>
-
-                <h2>Contato para Parcerias</h2>
-                <p>
-                    Se você é um operador de data center, já possui ou está planejando expansão para nova região 
-                    ou deseja alocar GPUs para geração de receita incremental, entre em contato conosco:<br>
-                    <div data-tf-live="01KABTNM0WT8RQ4VWHHJHHGGMD" style="width: 100%; height: 50px;"></div>
-                </p>
-
-                <!-- Navigation -->
                 <div class="page-nav">
-                    <a href="anexos.html" class="nav-btn">
-                        <span class="nav-direction">← Anterior</span>
-                        <span class="nav-title">Anexos</span>
+                    <a href="processo-de-investimento-en.html" class="nav-btn">
+                        <span class="nav-direction">← Previous</span>
+                        <span class="nav-title">Investment Process</span>
                     </a>
-                    <div></div>
+                    <a href="consideracoes-en.html" class="nav-btn nav-btn-next">
+                        <span class="nav-direction">Next →</span>
+                        <span class="nav-title">Considerations</span>
+                    </a>
                 </div>
             </div>
         </main>
@@ -542,7 +458,6 @@
             overlay.classList.toggle('active');
         }
 
-        // Close sidebar when clicking on nav links (mobile)
         document.querySelectorAll('.nav-link').forEach(link => {
             link.addEventListener('click', () => {
                 if (window.innerWidth <= 768) {
@@ -553,4 +468,3 @@
     </script>
 </body>
 </html>
-<script src="https://embed.typeform.com/next/embed.js"></script>
